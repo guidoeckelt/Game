@@ -12,5 +12,12 @@
 
     <artifactId>PointyAndClicky.GUI</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>${parent.groupId}</groupId>
+            <artifactId>${parent.artifactId}.Model</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
