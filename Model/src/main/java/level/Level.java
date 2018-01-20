@@ -17,7 +17,7 @@ public abstract class Level {
         loadWaves();
     }
 
-    protected void loadNextWave(){
+    protected void loadNextWave() {
 
     }
 

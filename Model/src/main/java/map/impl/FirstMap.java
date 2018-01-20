@@ -1,10 +1,10 @@
 package map.impl;
 
-import javafx.geometry.Dimension2D;
-import map.WayPoint;
 import level.Level;
 import level.impl.FirstLevel;
 import map.Map;
+import map.WayPoint;
+import metric.Dimension;
 import metric.Vector;
 
 /**
@@ -13,12 +13,12 @@ import metric.Vector;
 public class FirstMap extends Map {
 
     public FirstMap() {
-        gridSize = new Dimension2D(190,80);
+        gridSize = new Dimension(190, 80);
         //WayPoints
-        Vector position = new Vector(this.gridSize.getWidth()-2,this.gridSize.getHeight()/2);
+        Vector position = new Vector(this.gridSize.getWidth() - 2, this.gridSize.getHeight() / 2);
         WayPoint wayPoint = new WayPoint(position);
         wayPoints.addLast(wayPoint);
-        position = new Vector(2,this.gridSize.getHeight()/2);
+        position = new Vector(2, this.gridSize.getHeight() / 2);
         WayPoint wayPoint2 = new WayPoint(position, wayPoint);
         wayPoints.addFirst(wayPoint2);
     }

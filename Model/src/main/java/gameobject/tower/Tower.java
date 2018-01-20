@@ -1,9 +1,9 @@
 package gameobject.tower;
 
-import javafx.geometry.Dimension2D;
-import javafx.scene.input.DataFormat;
 import gameobject.GameObject;
 import gameobject.minion.Minion;
+import javafx.scene.input.DataFormat;
+import metric.Dimension;
 import metric.Vector;
 
 import java.io.Serializable;
@@ -29,7 +29,7 @@ public abstract class Tower extends GameObject implements Serializable {
     protected List<Minion> minionsInRange = new ArrayList<>();
 
     public Tower(Vector position) {
-        super(position, new Dimension2D(2, 2));
+        super(position, new Dimension(2, 2));
         name = "Tower";
     }
 

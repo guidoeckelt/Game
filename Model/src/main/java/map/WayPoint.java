@@ -23,8 +23,8 @@ public class WayPoint {
         this.routeToNextWayPoint = calculateShortestPathToNextWayPoint(nextWayPoint);
     }
 
-    private List<Vector> calculateShortestPathToNextWayPoint(WayPoint wayPoint){
-        return  null;
+    private List<Vector> calculateShortestPathToNextWayPoint(WayPoint wayPoint) {
+        return null;
     }
 
     public Vector getPosition() {

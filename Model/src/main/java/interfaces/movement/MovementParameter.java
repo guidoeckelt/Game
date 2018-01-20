@@ -1,28 +1,28 @@
-package util;
+package interfaces.movement;
 
-import javafx.geometry.Dimension2D;
 import gameobject.GameObject;
+import metric.Dimension;
 
 import java.util.List;
 
 /**
  * Created by Guido on 12.05.2016.
  */
-public class MoveInfo {
+public class MovementParameter {
 
-    private Dimension2D gridSize;
+    private Dimension gridSize;
     private List<GameObject> gameObjects;
 
-    public MoveInfo(Dimension2D gridSize, List<GameObject> gameObjects) {
+    public MovementParameter(List<GameObject> gameObjects) {
         this.gridSize = gridSize;
         this.gameObjects = gameObjects;
     }
 
-    public Dimension2D getGridSize() {
+    public Dimension getGridSize() {
         return gridSize;
     }
 
-    public void setGridSize(Dimension2D gridSize) {
+    public void setGridSize(Dimension gridSize) {
         this.gridSize = gridSize;
     }
 

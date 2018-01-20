@@ -1,7 +1,7 @@
 package map;
 
-import javafx.geometry.Dimension2D;
 import level.Level;
+import metric.Dimension;
 
 import java.util.LinkedList;
 
@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public abstract class Map {
 
-    protected Dimension2D gridSize;
+    protected Dimension gridSize;
     protected LinkedList<WayPoint> wayPoints = new LinkedList<>();
     protected LinkedList<Level> levels = new LinkedList<>();
     protected Level currentLevel;
@@ -20,21 +20,21 @@ public abstract class Map {
         loadNextLevel();
     }
 
-    protected void loadNextLevel(){
-        if(currentLevel != null){
-            if(currentLevel != levels.getLast()){
-                currentLevel = levels.get(levels.indexOf(currentLevel)+1);
-            }else{
+    protected void loadNextLevel() {
+        if (currentLevel != null) {
+            if (currentLevel != levels.getLast()) {
+                currentLevel = levels.get(levels.indexOf(currentLevel) + 1);
+            } else {
                 currentLevel = levels.getLast();
             }
-        }else{
+        } else {
             currentLevel = levels.getFirst();
         }
     }
 
     protected abstract void loadLevels();
 
-    public Dimension2D getGridSize() {
+    public Dimension getGridSize() {
         return gridSize;
     }
 

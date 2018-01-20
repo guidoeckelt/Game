@@ -1,6 +1,7 @@
 package fx.view;
 
 import fx.viewmodel.MenuViewModel;
+import gameobject.tower.Tower;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
-import gameobject.tower.Tower;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,7 +60,7 @@ public class MenuView implements Initializable {
         Rectangle graphic = new Rectangle();
         graphic.setWidth(tower.getSize().getWidth());
         graphic.setHeight(tower.getSize().getHeight());
-        graphic.setFill(tower.getColor());
+//        graphic.setFill(tower.getColor());
         towerGraphic.setImage(graphic.snapshot(null, null));
         lblName.setText(String.valueOf(tower.getName()));
         lblCost.setText(String.valueOf(tower.getCost()));

@@ -1,9 +1,9 @@
 package fx.viewmodel;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import gameobject.tower.Tower;
 import gameobject.tower.impl.Gunner;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import metric.Vector;
 
 /**

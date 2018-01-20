@@ -1,16 +1,21 @@
 package metric;
 
+
 /**
  * Created by Guido on 05.05.2016.
  */
 public class Vector {
 
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
-    public Vector(double x, double y){
+    public Vector(double x, double y) {
         this(x, y, 0d);
+    }
+
+    public Vector(Vector vector) {
+        this(vector.getX(), vector.getY(), vector.getZ());
     }
 
     public Vector(double x, double y, double z) {
@@ -19,79 +24,68 @@ public class Vector {
         this.z = z;
     }
 
-    public Vector(Vector vector) {
-        this.x = vector.getX();
-        this.y = vector.getY();
-    }
 
     public double getX() {
         return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
     }
 
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public double getZ() {
+        return z;
     }
 
     public double length() {
 
-        double length = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
-
-        return length;
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
     }
 
     public Vector normalized() {
+
         double length = length();
-
-        Vector normalizedVector = new Vector(this.x / length, this.y / length);
-
-        return normalizedVector;
+        double newX = this.x / length;
+        double newY = this.y / length;
+        double newZ = this.z / length;
+        return new Vector(newX, newY, newZ);
     }
 
-    public Vector substract(Vector Position) {
+    public Vector substract(Vector position) {
 
-        double X = this.x - Position.getX();
-        double Y = this.y - Position.getY();
-
-        Vector substractedVector = new Vector(X, Y);
-
-        return substractedVector;
+        double newX = this.x - position.getX();
+        double newY = this.y - position.getY();
+        double newZ = this.z - position.getZ();
+        return new Vector(newX, newY, newZ);
     }
 
-    public Vector add(Vector Position) {
-        double X = this.x + Position.getX();
-        double Y = this.y + Position.getY();
+    public Vector add(Vector position) {
 
-        Vector addedVector = new Vector(X, Y);
-
-        return addedVector;
+        double newX = this.x + position.getX();
+        double newY = this.y + position.getY();
+        double newZ = this.z + position.getZ();
+        return new Vector(newX, newY, newZ);
     }
 
     public Vector add(double summand) {
 
-        Vector addedVector = new Vector(this.x + summand, this.y + summand);
-
-        return addedVector;
+        double newX = this.x + summand;
+        double newY = this.y + summand;
+        double newZ = this.z + summand;
+        return new Vector(newX, newY, newZ);
     }
 
     public Vector multipliedBy(double multiplier) {
-        Vector multipliedVector = new Vector(this.x * multiplier, this.y * multiplier);
 
-        return multipliedVector;
+        double newX = this.x * multiplier;
+        double newY = this.y * multiplier;
+        double newZ = this.z * multiplier;
+        return new Vector(newX, newY, newZ);
     }
 
     @Override
     public String toString() {
 
-        String stringed = "(x = " + this.x + " | y = " + this.y + ")";
-
-        return stringed;
+        return "(x = " + this.x + " | y = " + this.y + " | z = " + this.z + " )";
     }
 }
