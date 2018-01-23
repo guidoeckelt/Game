@@ -1,24 +1,25 @@
 package game.Graphic;
 
-import gameobject.GameObject;
-import javafx.scene.image.Image;
-import util.DrawParameters;
+import game.gameobject.GameObject;
 
-public class ImageGraphic extends Graphic<GameObject> {
+public class ImageGraphic extends Graphic {
 
-    private String filePath;
     private Image image;
 
-    public ImageGraphic(GameObject gameObject, String filePath) {
+    public ImageGraphic(GameObject gameObject, Image image) {
+
         super(gameObject);
-        this.filePath = filePath;
-        this.image = new Image("file:" + filePath);
+        this.image = image;
     }
 
     @Override
     public void draw(DrawParameters drawParameters) {
-        drawParameters.getContext().drawImage(this.image
-                , this.gameObject.getPosition().getX(), this.gameObject.getPosition().getY()
-                , this.gameObject.getSize().getWidth(), this.gameObject.getSize().getHeight());
+        double width = this.gameObject.getSize().getWidth();
+        double height = this.gameObject.getSize().getHeight();
+        double x = this.gameObject.getPosition().getX();
+        double y = this.gameObject.getPosition().getY();
+
+//        drawParameters.getContext().setSize(width, height);
+        drawParameters.getContext().drawImage(image, x, y, width, height);
     }
 }

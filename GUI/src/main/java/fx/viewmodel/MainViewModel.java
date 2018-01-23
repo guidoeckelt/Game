@@ -1,13 +1,9 @@
 package fx.viewmodel;
 
 import game.Game;
-import gameobject.GameObject;
-import gameobject.tower.BuildStatus;
-import gameobject.tower.Tower;
-import gameobject.tower.impl.Gunner;
+import game.metric.Dimension;
+import game.metric.Vector;
 import javafx.stage.Stage;
-import metric.Dimension;
-import metric.Vector;
 
 import java.util.LinkedList;
 
@@ -20,62 +16,62 @@ public class MainViewModel {
     private Game game;
     private LinkedList<Dimension> properSizes = new LinkedList<>();
 
-    public MainViewModel(Stage primaryStage, Game game) {
+    public MainViewModel(Stage primaryStage) {
         this.mainWindow = primaryStage;
-        this.game = game;
 
         this.mainWindow.setResizable(false);
         this.mainWindow.setMaximized(true);
         this.initSuitableSizes();
     }
 
-    public void init() {
+    public void startGame() {
+        this.game = new Game();
         this.game.start();
     }
 
-    public void createNewPossibleTower(String name, double mouseX, double mouseY) {
-        double x = (mouseX / game.getView().getFieldSize());
-        double y = (mouseY / game.getView().getFieldSize());
-        Vector suitablePosition = getSuitablePosition(x, y);
-        Tower tower = new Gunner(new Vector(suitablePosition.getX(), suitablePosition.getY()));
-        game.setToCreatingTower(tower);
-    }
-
-    public void updateNewPossibleTower(double mouseX, double mouseY) {
-        double x = (mouseX / game.getView().getFieldSize());
-        double y = (mouseY / game.getView().getFieldSize());
-        Vector suitablePosition = getSuitablePosition(x, y);
-        game.toCreatingTowerProperty().get().setPosition(suitablePosition);
-    }
-
-    public boolean isTowerOnFreeSpot() {
-        if (game.getGameObjects().size() > 0) {
-            for (GameObject gameObject : game.getGameObjects()) {
-                if (game.toCreatingTowerProperty().get().intersects(gameObject)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void markTowerAsInvalid() {
-        game.getToCreatingTower().setBuildStatus(BuildStatus.INVALID);
-    }
-
-    public void markTowerAsValid() {
-        game.getToCreatingTower().setBuildStatus(BuildStatus.VALID);
-    }
-
-    public void addNewPossibleTower() {
-        game.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
-        game.addGameObject(game.getToCreatingTower());
-        clearNewPossibleTower();
-    }
-
-    public void clearNewPossibleTower() {
-        game.toCreatingTowerProperty().setValue(null);
-    }
+//    public void createNewPossibleTower(String name, double mouseX, double mouseY) {
+//        double x = (mouseX / game.getView().getFieldSize());
+//        double y = (mouseY / game.getView().getFieldSize());
+//        Vector suitablePosition = getSuitablePosition(x, y);
+//        Tower tower = new Gunner(new Vector(suitablePosition.getX(), suitablePosition.getY()));
+//        game.setToCreatingTower(tower);
+//    }
+//
+//    public void updateNewPossibleTower(double mouseX, double mouseY) {
+//        double x = (mouseX / game.getView().getFieldSize());
+//        double y = (mouseY / game.getView().getFieldSize());
+//        Vector suitablePosition = getSuitablePosition(x, y);
+//        game.toCreatingTowerProperty().get().setPosition(suitablePosition);
+//    }
+//
+//    public boolean isTowerOnFreeSpot() {
+//        if (game.getGameObjects().size() > 0) {
+//            for (GameObject gameObject : game.getGameObjects()) {
+//                if (game.toCreatingTowerProperty().get().intersects(gameObject)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//
+//    public void markTowerAsInvalid() {
+//        game.getToCreatingTower().setBuildStatus(BuildStatus.INVALID);
+//    }
+//
+//    public void markTowerAsValid() {
+//        game.getToCreatingTower().setBuildStatus(BuildStatus.VALID);
+//    }
+//
+//    public void addNewPossibleTower() {
+//        game.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
+//        game.addGameObject(game.getToCreatingTower());
+//        clearNewPossibleTower();
+//    }
+//
+//    public void clearNewPossibleTower() {
+//        game.toCreatingTowerProperty().setValue(null);
+//    }
 
     private Vector getSuitablePosition(double rawX, double rawY) {
         Vector suitablePosition;

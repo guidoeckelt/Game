@@ -5,7 +5,6 @@ package fx;
 
 import fx.view.MainView;
 import fx.viewmodel.MainViewModel;
-import game.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,40 +17,35 @@ public class FxApp extends Application {
 
     private MainViewModel mainViewModel;
     private MainView mainView;
-    private FXMLLoader loader;
     private Stage primaryStage;
     private Scene mainScene;
+    private Parent mainNode;
 
     public static void main(String[] args) {
         launch(args);
     }
 
-
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        Game game = new Game();
-        this.mainViewModel = new MainViewModel(primaryStage, game);
+        this.mainViewModel = new MainViewModel(primaryStage);
         this.mainView = new MainView(mainViewModel);
 
-        loader = new FXMLLoader(getClass().getResource("/View/MainView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MainView.fxml"));
         loader.setController(mainView);
-        Parent mainNode;
         try {
             mainNode = loader.load();
-            this.loadWindowAndStartApp(mainNode);
+            this.loadWindowAndStartApp();
         } catch (IOException e) {
             handleLoadException(e);
         }
     }
 
-    private void loadWindowAndStartApp(Parent node) {
-        mainScene = new Scene(node);
+    private void loadWindowAndStartApp() {
+        mainScene = new Scene(this.mainNode);
         primaryStage.setScene(mainScene);
-        this.mainViewModel.init();
-        this.mainView.init();
         primaryStage.show();
-
+        mainView.init();
     }
 
     private void handleLoadException(IOException e) {

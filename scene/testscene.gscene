@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Scene width="2000" height="900">
+    <Square>
+        <Position X="50" Y="50"/>
+        <Size Width="20" Height="20"/>
+    </Square>
+</Scene>

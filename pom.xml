@@ -12,6 +12,7 @@
     <modules>
         <module>Model</module>
         <module>GUI</module>
+        <module>guiSwing</module>
     </modules>
 
     <properties>

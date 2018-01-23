@@ -1,7 +1,5 @@
 package game.Graphic;
 
-import util.DrawParameters;
-
 public class NoGraphic extends Graphic {
 
     public NoGraphic() {

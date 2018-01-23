@@ -1,48 +1,55 @@
 package game.Graphic;
 
-import gameobject.GameObject;
-import javafx.scene.image.Image;
-import util.DrawParameters;
+import game.gameobject.GameObject;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class SpriteGraphic extends Graphic<GameObject> {
+public class SpriteGraphic extends Graphic {
 
 
-    private List<String> filePathList;
-    private List<Image> imageList = new ArrayList<>();
+    private List<Image> imageList;
     private int currentImageIndex;
+    private Date lastChange;
+    private long spriteDelay;
 
-    public SpriteGraphic(GameObject gameObject, List<String> filePathList) {
+    public SpriteGraphic(GameObject gameObject, List<Image> images, long spriteDelay) {
+
         super(gameObject);
-        this.filePathList = filePathList;
+        this.imageList = images;
         this.currentImageIndex = 0;
-        this.loadAllImages();
+        this.lastChange = new Date();
+        this.spriteDelay = spriteDelay;
     }
 
     @Override
     public void draw(DrawParameters drawParameters) {
+
+        double width = this.gameObject.getSize().getWidth();
+        double height = this.gameObject.getSize().getHeight();
+        double x = this.gameObject.getPosition().getX();
+        double y = this.gameObject.getPosition().getY();
         Image image = this.imageList.get(this.currentImageIndex);
-        drawParameters.getContext().drawImage(image
-                , this.gameObject.getPosition().getX(), this.gameObject.getPosition().getY()
-                , this.gameObject.getSize().getWidth(), this.gameObject.getSize().getHeight());
-        this.nextImage();
+//        drawParameters.getContext().setSize(width, height);
+        drawParameters.getContext().drawImage(image, x, y, width, height);
+        this.checkForNextImage();
     }
 
-    private void loadAllImages() {
-        for (int i = 0; i < this.filePathList.size(); i++) {
-            String filePath = this.filePathList.get(i);
-            Image image = new Image("file:" + filePath);
-            this.imageList.add(image);
+    private void checkForNextImage() {
+        Date now = new Date();
+        if (now.getTime() - this.lastChange.getTime() >= this.spriteDelay) {
+            this.nextImage();
+            this.lastChange = now;
         }
     }
 
     private void nextImage() {
+
         if (this.currentImageIndex == (this.imageList.size() - 1)) {
             this.currentImageIndex = 0;
         } else {
             this.currentImageIndex++;
         }
+
     }
 }

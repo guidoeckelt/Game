@@ -1,13 +1,12 @@
 package game.Graphic;
 
-import gameobject.GameObject;
-import util.DrawParameters;
+import game.gameobject.GameObject;
 
-public abstract class Graphic<T extends GameObject> {
+public abstract class Graphic {
 
-    protected T gameObject;
+    protected GameObject gameObject;
 
-    public Graphic(T gameObject) {
+    public Graphic(GameObject gameObject) {
         this.gameObject = gameObject;
     }
 

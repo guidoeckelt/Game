@@ -1,11 +1,10 @@
 package game;
 
+import game.Graphic.DrawParameters;
 import game.Graphic.Graphic;
-import gameobject.GameObject;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import util.DrawParameters;
+import game.Graphic.GraphicContext;
+import game.gameobject.GameObject;
+import game.metric.Vector;
 
 import java.util.List;
 import java.util.Timer;
@@ -18,76 +17,54 @@ public class View {
 
     private Timer timer;
     private int delay;
-    private TimerTask renderLoopTask;
+
     private Game game;
+    private Canvas canvas;
+    private Camera camera;
 
-    private double fieldSize;
-    private Canvas scene;
-    private GraphicsContext context;
+    public View(Canvas canvas) {
 
-    public View() {
+        this.timer = new Timer(true);
+        this.delay = 20;
 
-        this.timer = new Timer();
-        this.renderLoopTask = new TimerTask() {
-            @Override
-            public void run() {
-                renderLoop();
-            }
-        };
-        this.delay = 10;
-
-        this.scene = new Canvas(1200, 900);
-        this.context = this.scene.getGraphicsContext2D();
-        fieldSize = 10;
+        this.canvas = canvas;
+        this.camera = new Camera(new Vector(0, 0), canvas.getViewport());
     }
 
     public void render(Game game) {
         this.game = game;
         this.renderLoop();
-        timer.scheduleAtFixedRate(this.renderLoopTask, 0, this.delay);
     }
 
     private void renderLoop() {
-        this.clearCanvas();
+        this.canvas.clear();
         this.drawBackground();
-        this.drawGameObjects(game.getGameObjects());
-//        Platform.runLater(() -> {
-//        });
-    }
-
-    private void clearCanvas() {
-        this.context.clearRect(0, 0, this.scene.getWidth(), this.scene.getHeight());
+        this.drawGameObjects(game.getCurrentScene().getGameObjects());
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                renderLoop();
+                this.cancel();
+            }
+        };
+        timer.scheduleAtFixedRate(task, this.delay, 20);
     }
 
     private void drawBackground() {
-        this.context.setStroke(Color.BLACK);
-        this.context.setFill(Color.GRAY);
-        this.context.fillRect(0, 0, this.scene.getWidth(), this.scene.getHeight());
+        GraphicContext context = this.canvas.newGraphicContext();
+        context.drawRect(0, 0, this.canvas.getViewport().getWidth(), this.canvas.getViewport().getHeight(), "#AAAAAA", null);
     }
 
     private void drawGameObjects(List<GameObject> gameObjects) {
-        DrawParameters drawParameters = new DrawParameters(context, fieldSize);
         for (GameObject gameObject : gameObjects) {
+            DrawParameters drawParameters = new DrawParameters(this.canvas.newGraphicContext());
             Graphic graphic = gameObject.currentGraphic();
             graphic.draw(drawParameters);
         }
     }
 
-    public double getWidth() {
-        return this.scene.getWidth();
-    }
-
-
-    public double getHeight() {
-        return this.scene.getHeight();
-    }
-
-    public Canvas getScene() {
-        return this.scene;
-    }
-
-    public double getFieldSize() {
-        return fieldSize;
-    }
+//    public Canvas getScene() {
+//        return this.scene;
+//    }
 
 }
