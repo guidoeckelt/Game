@@ -1,7 +1,7 @@
 package game.gameobject.square;
 
-import game.Graphic.DrawParameters;
-import game.Graphic.Graphic;
+import game.graphic.DrawParameters;
+import game.graphic.Graphic;
 import game.metric.Vector;
 import javafx.scene.paint.Color;
 

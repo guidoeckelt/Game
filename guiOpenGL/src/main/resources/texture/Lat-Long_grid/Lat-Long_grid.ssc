@@ -1,0 +1,10 @@
+# Grid Overlay with latitude, longitude, equator, tropics and circle lines.
+# Edited by Frank Gregorio - modification of texture originally provided by Grant Hutchison
+# use without restriction
+
+AltSurface "Grid Overlay" "Sol/Earth"
+{
+	Texture "earth.*"
+	OverlayTexture "earthgrid.png"
+}
+

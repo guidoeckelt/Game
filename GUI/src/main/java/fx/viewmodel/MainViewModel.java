@@ -1,9 +1,14 @@
 package fx.viewmodel;
 
+import fx.input.FxKeyBoard;
+import fx.input.FxMouse;
 import game.Game;
+import game.input.KeyBoard;
+import game.input.Mouse;
 import game.metric.Dimension;
-import game.metric.Vector;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.LinkedList;
 
@@ -21,68 +26,19 @@ public class MainViewModel {
 
         this.mainWindow.setResizable(false);
         this.mainWindow.setMaximized(true);
+        this.mainWindow.initStyle(StageStyle.UNDECORATED);
         this.initSuitableSizes();
     }
 
     public void startGame() {
-        this.game = new Game();
+        Mouse mouse = new FxMouse(this.mainWindow);
+        KeyBoard keyBoard = new FxKeyBoard(this.mainWindow);
+        this.game = new Game(mouse, keyBoard);
         this.game.start();
     }
 
-//    public void createNewPossibleTower(String name, double mouseX, double mouseY) {
-//        double x = (mouseX / game.getView().getFieldSize());
-//        double y = (mouseY / game.getView().getFieldSize());
-//        Vector suitablePosition = getSuitablePosition(x, y);
-//        Tower tower = new Gunner(new Vector(suitablePosition.getX(), suitablePosition.getY()));
-//        game.setToCreatingTower(tower);
-//    }
-//
-//    public void updateNewPossibleTower(double mouseX, double mouseY) {
-//        double x = (mouseX / game.getView().getFieldSize());
-//        double y = (mouseY / game.getView().getFieldSize());
-//        Vector suitablePosition = getSuitablePosition(x, y);
-//        game.toCreatingTowerProperty().get().setPosition(suitablePosition);
-//    }
-//
-//    public boolean isTowerOnFreeSpot() {
-//        if (game.getGameObjects().size() > 0) {
-//            for (GameObject gameObject : game.getGameObjects()) {
-//                if (game.toCreatingTowerProperty().get().intersects(gameObject)) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-//
-//    public void markTowerAsInvalid() {
-//        game.getToCreatingTower().setBuildStatus(BuildStatus.INVALID);
-//    }
-//
-//    public void markTowerAsValid() {
-//        game.getToCreatingTower().setBuildStatus(BuildStatus.VALID);
-//    }
-//
-//    public void addNewPossibleTower() {
-//        game.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
-//        game.addGameObject(game.getToCreatingTower());
-//        clearNewPossibleTower();
-//    }
-//
-//    public void clearNewPossibleTower() {
-//        game.toCreatingTowerProperty().setValue(null);
-//    }
-
-    private Vector getSuitablePosition(double rawX, double rawY) {
-        Vector suitablePosition;
-        double X = Math.round(rawX);
-        double Y = Math.round(rawY);
-        if (rawX != X || rawY != Y) {
-            suitablePosition = new Vector(X, Y);
-        } else {
-            suitablePosition = new Vector(rawX, rawY);
-        }
-        return suitablePosition;
+    public void end() {
+        Platform.exit();
     }
 
     public Dimension getProperSize(double width, double height) {

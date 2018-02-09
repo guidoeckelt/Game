@@ -10,14 +10,15 @@
         <version>0.0.5</version>
     </parent>
 
-    <artifactId>PointyAndClicky.GUI</artifactId>
+    <artifactId>GUI</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>${parent.groupId}</groupId>
-            <artifactId>${parent.artifactId}.Model</artifactId>
+            <artifactId>Model</artifactId>
             <version>${parent.version}</version>
         </dependency>
+
     </dependencies>
 
 </project>

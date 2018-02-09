@@ -1,10 +1,10 @@
 package game;
 
-import game.Graphic.ImageContainer;
 import game.gameobject.GameObject;
 import game.gameobject.TestImageGameObject;
 import game.gameobject.TestSpriteGameObject;
 import game.gameobject.square.Square;
+import game.graphic.image.ImageContainer;
 import game.metric.Dimension;
 import game.metric.Vector;
 

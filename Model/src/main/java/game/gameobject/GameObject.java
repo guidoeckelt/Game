@@ -1,8 +1,8 @@
 package game.gameobject;
 
-import game.Graphic.Graphic;
-import game.Graphic.ImageContainer;
-import game.Graphic.NoGraphic;
+import game.graphic.Graphic;
+import game.graphic.NoGraphic;
+import game.graphic.image.ImageContainer;
 import game.metric.Dimension;
 import game.metric.Vector;
 import game.movement.MovementParameter;

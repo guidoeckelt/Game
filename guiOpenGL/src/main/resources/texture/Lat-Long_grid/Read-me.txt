@@ -1,0 +1,3 @@
+# An add-on to place a latitude and longitude grid overlay on Earth, to include the Equator, Tropics of Cancer and Capricorn, and Arctic and Antarctic Circles.  Place in your extras folder in Celestia.  Launch Celestia, go to Earth, right-click on Earth, select "alternate textures" and choose Grid-Overlay.  When done using it, right-click on Earth, select "alternate textures" and choose "Normal"
+
+#  Edited by Frank Gregorio - Based on a texture originally developed by Grant Hutchison - 2005

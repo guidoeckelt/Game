@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>PointyAndClicky.guiSwing</artifactId>
+    <artifactId>guiSwing</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>${parent.groupId}</groupId>
-            <artifactId>${parent.artifactId}.Model</artifactId>
+            <artifactId>Model</artifactId>
             <version>${parent.version}</version>
         </dependency>
     </dependencies>

@@ -1,8 +1,8 @@
 package game.gameobject.square;
 
-import game.Graphic.Graphic;
-import game.Graphic.ImageContainer;
 import game.gameobject.GameObject;
+import game.graphic.Graphic;
+import game.graphic.image.ImageContainer;
 import game.metric.Dimension;
 import game.metric.Vector;
 
