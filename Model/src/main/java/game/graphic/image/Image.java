@@ -35,6 +35,7 @@ public class Image {
     public void capture(Image other, int startX, int startY) {
         int endX = other.getWidth();
         int endY = other.getHeight();
+        //TODO check for start x and y if less than 0
         if (startX + other.getWidth() > this.width - 1) {
             endX = this.width - startX;
         }

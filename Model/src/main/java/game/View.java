@@ -23,20 +23,14 @@ public class View {
     private Game game;
     private Canvas canvas;
     private Camera camera;
-    private Image image;
-
-    private int offset;
 
     public View(Canvas canvas) {
 
         this.timer = new Timer(true);
-        this.delay = 10;
+        this.delay = 100;
 
         this.canvas = canvas;
         this.camera = new Camera(new Vector(0, 0), canvas.getViewport());
-
-        this.image = new Image("D:\\Bildas\\teamSucksButInISayNothing.jpg");
-        this.offset = 0;
     }
 
     public void render(Game game) {
@@ -47,13 +41,12 @@ public class View {
     private void renderLoop() {
         int width = (int) this.canvas.getViewport().getWidth();
         int height = (int) this.canvas.getViewport().getHeight();
-        Image currentImage = new Image(width, height);
-        this.drawBackground(currentImage);
-        this.drawGameObjects(game.getCurrentScene().getGameObjects(), currentImage);
-        this.drawMouse(game.getMouse(), currentImage);
-//        currentImage.capture(this.image, this.offset,10);
+        Image currentScene = new Image(width, height);
+        this.drawBackground(currentScene);
+        this.drawGameObjects(game.getCurrentScene().getGameObjects(), currentScene);
+        this.drawMouse(game.getMouse(), currentScene);
         GraphicContext context = this.canvas.newGraphicContext();
-        context.drawImage(currentImage, 0, 0);
+        context.drawImage(currentScene, 0, 0);
 
         TimerTask task = new TimerTask() {
             @Override
@@ -76,6 +69,9 @@ public class View {
 
     private void drawGameObjects(List<GameObject> gameObjects, Image currentImage) {
         for (GameObject gameObject : gameObjects) {
+            if (!camera.isGameObjectVisible(gameObject)) {
+                continue;
+            }
             GraphicContext context = this.canvas.newGraphicContext(currentImage);
             DrawParameters drawParameters = new DrawParameters(context);
             Graphic graphic = gameObject.currentGraphic();
