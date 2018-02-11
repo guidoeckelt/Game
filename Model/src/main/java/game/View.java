@@ -72,7 +72,7 @@ public class View {
             if (!camera.isGameObjectVisible(gameObject)) {
                 continue;
             }
-            GraphicContext context = this.canvas.newGraphicContext(currentImage);
+            GraphicContext context = this.canvas.newGraphicContext(this.camera, currentImage);
             DrawParameters drawParameters = new DrawParameters(context);
             Graphic graphic = gameObject.currentGraphic();
             graphic.draw(drawParameters);

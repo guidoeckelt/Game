@@ -5,6 +5,7 @@ import fx.input.FxMouse;
 import game.Game;
 import game.input.KeyBoard;
 import game.input.Mouse;
+import game.media.Speaker;
 import game.metric.Dimension;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -33,7 +34,8 @@ public class MainViewModel {
     public void startGame() {
         Mouse mouse = new FxMouse(this.mainWindow);
         KeyBoard keyBoard = new FxKeyBoard(this.mainWindow);
-        this.game = new Game(mouse, keyBoard);
+        Speaker speaker = new Speaker();
+        this.game = new Game(mouse, keyBoard, speaker);
         this.game.start();
     }
 

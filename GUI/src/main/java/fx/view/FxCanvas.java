@@ -1,5 +1,6 @@
 package fx.view;
 
+import game.Camera;
 import game.Canvas;
 import game.graphic.GraphicContext;
 import game.graphic.image.Image;
@@ -22,7 +23,7 @@ public class FxCanvas implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext(Image currentImage) {
+    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
         return new FxGraphicContext(this.context, currentImage);
     }
 

@@ -6,6 +6,7 @@ import game.input.KeyBoard;
 import game.input.Mouse;
 import game.input.MouseButton;
 import game.input.MouseEvent;
+import game.media.Speaker;
 import game.metric.Dimension;
 import game.movement.MovementParameter;
 
@@ -21,17 +22,19 @@ public class Game {
     private ImageContainer imageContainer;
     private Mouse mouse;
     private KeyBoard keyBoard;
+    private Speaker speaker;
     private Scene currentScene;
     //GameLoop
     private Timer timer;
     private TimerTask gameLoop;
     private long delay;
 
-    public Game(Mouse mouse, KeyBoard keyBoard) {
+    public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
 
         this.imageContainer = new ImageContainer();
         this.mouse = mouse;
         this.keyBoard = keyBoard;
+        this.speaker = speaker;
         this.currentScene = new Scene(imageContainer, new Dimension(2000, 1000));
 
         this.timer = new Timer(true);

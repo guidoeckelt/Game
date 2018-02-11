@@ -10,7 +10,7 @@ public class ImageContainer {
     private Dictionary<String, Image> imageDictionary;
 
     public ImageContainer() {
-        this.rootPath = "D:\\DevGame\\PointyAndClicky\\sprites\\";
+        this.rootPath = "D:\\DevGame\\PointyAndClicky\\media\\sprites\\";
         this.rootPath = "D:\\DevGame\\Sprites\\";
         this.imageDictionary = new Hashtable<>();
 

@@ -1,5 +1,6 @@
 package swing;
 
+import game.Camera;
 import game.Canvas;
 import game.graphic.GraphicContext;
 import game.graphic.image.Image;
@@ -48,7 +49,7 @@ public class SwingCanvas extends JPanel implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext(Image currentImage) {
+    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
         Graphics g2 = this.getGraphics().create(0, 0, this.width, this.height);
         return new SwingGraphicContext(g2, currentImage);
     }

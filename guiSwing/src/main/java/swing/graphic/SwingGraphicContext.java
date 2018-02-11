@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class SwingGraphicContext implements GraphicContext {
 
-    private final Image image;
+    private final Image sceneImage;
     private Graphics g;
     private Graphics temp;
 
@@ -18,7 +18,7 @@ public class SwingGraphicContext implements GraphicContext {
 
     public SwingGraphicContext(Graphics g, Image currentImage) {
         this.g = g;
-        this.image = currentImage;
+        this.sceneImage = currentImage;
     }
 
     @Override
@@ -28,8 +28,8 @@ public class SwingGraphicContext implements GraphicContext {
 
     @Override
     public void drawImage(Image image, double x, double y, double width, double height) {
-        if (this.image != null) {
-            this.image.capture(image, (int) x, (int) y);
+        if (this.sceneImage != null) {
+            this.sceneImage.capture(image, (int) x, (int) y);
             return;
         }
         java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
@@ -38,8 +38,8 @@ public class SwingGraphicContext implements GraphicContext {
 
     @Override
     public void drawImage(Image image, double x, double y) {
-        if (this.image != null) {
-            this.image.capture(image, (int) x, (int) y);
+        if (this.sceneImage != null) {
+            this.sceneImage.capture(image, (int) x, (int) y);
             return;
         }
         java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();

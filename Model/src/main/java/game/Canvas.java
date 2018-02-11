@@ -12,5 +12,5 @@ public interface Canvas {
 
     Dimension getViewport();
 
-    GraphicContext newGraphicContext(Image currentImage);
+    GraphicContext newGraphicContext(Camera camera, Image currentImage);
 }
