@@ -1,6 +1,6 @@
 package game.graphic.image;
 
-import javax.swing.*;
+import java.awt.*;
 import java.awt.image.MemoryImageSource;
 
 public class MemoryImageConverter {
@@ -12,7 +12,7 @@ public class MemoryImageConverter {
     }
 
     public java.awt.Image intoAwt() {
-        JPanel panel = new JPanel();
+        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         int width = this.image.getWidth();
         int height = this.image.getHeight();
         int pixels[] = new int[width * height];
@@ -24,7 +24,7 @@ public class MemoryImageConverter {
                 index++;
             }
         }
-        return panel.createImage(new MemoryImageSource(width, height, pixels, 0, width));
+        return defaultToolkit.createImage(new MemoryImageSource(width, height, pixels, 0, width));
     }
 
     public javafx.scene.image.Image intoFx() {

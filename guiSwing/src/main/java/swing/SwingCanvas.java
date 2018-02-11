@@ -15,10 +15,10 @@ public class SwingCanvas extends JPanel implements Canvas {
     private int width;
     private int height;
 
-    public SwingCanvas(int width, int height) {
+    public SwingCanvas(java.awt.Dimension size) {
 
-        this.width = width;
-        this.height = height;
+        this.width = size.width;
+        this.height = size.height;
         this.setSize(width, height);
         BufferedImage blankCursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -53,9 +53,4 @@ public class SwingCanvas extends JPanel implements Canvas {
         return new SwingGraphicContext(g2, currentImage);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-        this.requestFocus();
-    }
 }

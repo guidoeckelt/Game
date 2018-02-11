@@ -27,7 +27,7 @@ public class View {
     public View(Canvas canvas) {
 
         this.timer = new Timer(true);
-        this.delay = 100;
+        this.delay = 10;
 
         this.canvas = canvas;
         this.camera = new Camera(new Vector(0, 0), canvas.getViewport());
