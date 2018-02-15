@@ -1,9 +1,8 @@
 package game;
 
+import a.pointyandclicky.clicky.Clicky;
+import a.pointyandclicky.pointy.Pointy;
 import game.gameobject.GameObject;
-import game.gameobject.TestImageGameObject;
-import game.gameobject.TestSpriteGameObject;
-import game.gameobject.square.Square;
 import game.graphic.image.ImageContainer;
 import game.metric.Dimension;
 import game.metric.Vector;
@@ -26,13 +25,10 @@ public class Scene {
     }
 
     protected void fill() {
-        GameObject square = new Square(new Vector(50, 50), new Dimension(20, 20));
-        this.add(square);
-        GameObject gameObject = new TestImageGameObject(new Vector(50, 150), new Dimension(20, 20));
-        this.add(gameObject);
-        int scale = 5;
-        GameObject gameObject2 = new TestSpriteGameObject(new Vector(150, 150), new Dimension(30 * scale, 19 * scale));
-        this.add(gameObject2);
+        GameObject pointy = new Pointy(new Vector(50, 100));
+        this.add(pointy);
+        GameObject clicky = new Clicky(new Vector(250, 100));
+        this.add(clicky);
     }
 
     protected void add(GameObject gameObject) {

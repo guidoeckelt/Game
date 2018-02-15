@@ -1,5 +1,6 @@
 package game.graphic.image;
 
+import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -7,11 +8,12 @@ public class ImageContainer {
 
     private final String protocol = "file://";
     private String rootPath;
+    private String rootPath2;
     private Dictionary<String, Image> imageDictionary;
 
     public ImageContainer() {
         this.rootPath = "D:\\DevGame\\PointyAndClicky\\media\\sprites\\";
-        this.rootPath = "D:\\DevGame\\Sprites\\";
+        this.rootPath2 = "D:\\DevGame\\Sprites\\";
         this.imageDictionary = new Hashtable<>();
 
     }
@@ -50,11 +52,29 @@ public class ImageContainer {
     }
 
     private Image loadImageFromPath(String filePath, int width, int height) {
-        return new Image(rootPath + filePath, width, height);
+        try {
+            return new Image(this.rootPath + filePath, width, height);
+        } catch (IOException ioe) {
+            try {
+                return new Image(this.rootPath2 + filePath, width, height);
+            } catch (IOException ioe2) {
+                ioe2.printStackTrace();
+                return new Image(1, 1);
+            }
+        }
     }
 
     private Image loadImageFromPath(String filePath) {
-        return new Image(rootPath + filePath);
+        try {
+            return new Image(this.rootPath + filePath);
+        } catch (IOException ioe) {
+            try {
+                return new Image(this.rootPath2 + filePath);
+            } catch (IOException ioe2) {
+                ioe2.printStackTrace();
+                return new Image(1, 1);
+            }
+        }
     }
 
 }

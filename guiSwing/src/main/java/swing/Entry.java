@@ -26,6 +26,6 @@ public class Entry {
         view.render(game);
         game.start();
         String filePath = "Rooted\\01 Titelnummer 1.wav";
-        speaker.play(filePath);
+//        speaker.play(filePath);
     }
 }

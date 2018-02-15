@@ -1,4 +1,4 @@
-package game.gameobject.square;
+package a.test.square;
 
 import game.graphic.DrawParameters;
 import game.graphic.Graphic;

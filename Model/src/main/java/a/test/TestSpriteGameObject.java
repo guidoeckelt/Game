@@ -1,5 +1,6 @@
-package game.gameobject;
+package a.test;
 
+import game.gameobject.GameObject;
 import game.graphic.SpriteGraphic;
 import game.graphic.image.Image;
 import game.graphic.image.ImageContainer;

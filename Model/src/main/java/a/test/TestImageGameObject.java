@@ -1,5 +1,6 @@
-package game.gameobject;
+package a.test;
 
+import game.gameobject.GameObject;
 import game.graphic.Graphic;
 import game.graphic.ImageGraphic;
 import game.graphic.image.Image;
@@ -18,7 +19,7 @@ public class TestImageGameObject extends GameObject {
     public void createGraphics(ImageContainer imageContainer) {
 
         String key = "Test-1";
-        String path = "herz3.png";
+        String path = "pointy\\Smile_Front_32x32.png";
         Image image = imageContainer.loadImage(key, path);
         this.graphics.add(new ImageGraphic(this, image));
     }

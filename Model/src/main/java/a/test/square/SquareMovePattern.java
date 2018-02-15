@@ -1,4 +1,4 @@
-package game.gameobject.square;
+package a.test.square;
 
 import game.metric.Vector;
 import game.movement.MovementParameter;

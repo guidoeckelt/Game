@@ -46,6 +46,7 @@ public class View {
         this.drawGameObjects(game.getCurrentScene().getGameObjects(), currentScene);
         this.drawMouse(game.getMouse(), currentScene);
         GraphicContext context = this.canvas.newGraphicContext();
+//        this.canvas.clear();
         context.drawImage(currentScene, 0, 0);
 
         TimerTask task = new TimerTask() {
