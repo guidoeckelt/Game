@@ -7,22 +7,23 @@ import game.input.Mouse;
 import game.input.MouseButton;
 import game.input.MouseEvent;
 import game.media.Speaker;
-import game.metric.Dimension;
 import game.movement.MovementParameter;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Created by Guido on 11.05.2016.
  */
 public class Game {
 
+    private String rootPath = "D:\\DevGame\\";
+
     private ImageContainer imageContainer;
     private Mouse mouse;
     private KeyBoard keyBoard;
     private Speaker speaker;
+    private Hashtable<String, GameObjectIdentifier> gameObjectDictionary;
+    private List<Scene> loadedScenes;
     private Scene currentScene;
     //GameLoop
     private Timer timer;
@@ -35,7 +36,9 @@ public class Game {
         this.mouse = mouse;
         this.keyBoard = keyBoard;
         this.speaker = speaker;
-        this.currentScene = new Scene(imageContainer, new Dimension(2000, 1000));
+        this.gameObjectDictionary = new GameObjectDictionaryReader(this.rootPath).read();
+        this.loadedScenes = new ArrayList<>();
+//        this.currentScene = new Scene(imageContainer, new Dimension(2000, 1000), new ArrayList<>());
 
         this.timer = new Timer(true);
         this.gameLoop = new TimerTask() {
@@ -50,6 +53,7 @@ public class Game {
     }
 
     public void start() {
+        this.openScene("testscene");
         timer.scheduleAtFixedRate(gameLoop, 0, delay);
     }
 
@@ -76,6 +80,13 @@ public class Game {
         if (event.getButton().contains(MouseButton.MIDDLE)) {
             System.out.println("mitte");
         }
+    }
+
+    private void openScene(String name) {
+        SceneReader reader = new SceneReader(this.rootPath, this.gameObjectDictionary, imageContainer);
+        Scene newScene = reader.read(name);
+        this.currentScene = newScene;
+        this.loadedScenes.add(newScene);
     }
 
     private void updateAllGameObjects() {

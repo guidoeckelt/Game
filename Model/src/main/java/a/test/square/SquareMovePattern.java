@@ -1,16 +1,17 @@
 package a.test.square;
 
+import game.gameobject.GameObject;
 import game.metric.Vector;
 import game.movement.MovementParameter;
 import game.movement.MovementPattern;
 
-public class SquareMovePattern extends MovementPattern<Square> {
+public class SquareMovePattern extends MovementPattern {
 
 
     private int speed;
     private Vector moveDirection;
 
-    public SquareMovePattern(Square gameObject) {
+    public SquareMovePattern(GameObject gameObject) {
         super(gameObject);
         this.moveDirection = new Vector(1, 0).normalized();
         this.speed = 1;

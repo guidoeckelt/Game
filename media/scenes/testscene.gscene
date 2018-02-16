@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Scene width="2000" height="900">
+<Scene>
+
+    <Size width="2000" height="1000"/>
+
+    <GameObject key="Pointy">
+        <Parameter>
+            <Vector x="50" y="100"/>
+        </Parameter>
+    </GameObject>
+
+    <GameObject key="Clicky">
+        <Parameter>
+            <Vector x="250" y="100"/>
+        </Parameter>
+    </GameObject>
 
 </Scene>

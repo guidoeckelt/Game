@@ -2,11 +2,11 @@ package game.movement;
 
 import game.gameobject.GameObject;
 
-public abstract class MovementPattern<T extends GameObject> {
+public abstract class MovementPattern {
 
-    protected T associatedGameObject;
+    protected GameObject associatedGameObject;
 
-    public MovementPattern(T gameObject) {
+    public MovementPattern(GameObject gameObject) {
         this.associatedGameObject = gameObject;
     }
 

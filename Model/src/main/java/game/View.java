@@ -41,13 +41,13 @@ public class View {
     private void renderLoop() {
         int width = (int) this.canvas.getViewport().getWidth();
         int height = (int) this.canvas.getViewport().getHeight();
-        Image currentScene = new Image(width, height);
-        this.drawBackground(currentScene);
-        this.drawGameObjects(game.getCurrentScene().getGameObjects(), currentScene);
-        this.drawMouse(game.getMouse(), currentScene);
-        GraphicContext context = this.canvas.newGraphicContext();
-//        this.canvas.clear();
-        context.drawImage(currentScene, 0, 0);
+        Image canvasImage = new Image(width, height);
+        this.drawBackground(canvasImage);
+        if (game.getCurrentScene() != null) {
+            this.drawGameObjects(game.getCurrentScene().getGameObjects(), canvasImage);
+        }
+        this.drawMouse(game.getMouse(), canvasImage);
+        this.canvas.draw(canvasImage);
 
         TimerTask task = new TimerTask() {
             @Override
@@ -68,12 +68,12 @@ public class View {
         }
     }
 
-    private void drawGameObjects(List<GameObject> gameObjects, Image currentImage) {
+    private void drawGameObjects(List<GameObject> gameObjects, Image canvasImage) {
         for (GameObject gameObject : gameObjects) {
             if (!camera.isGameObjectVisible(gameObject)) {
                 continue;
             }
-            GraphicContext context = this.canvas.newGraphicContext(this.camera, currentImage);
+            GraphicContext context = this.canvas.newGraphicContext(this.camera, canvasImage);
             DrawParameters drawParameters = new DrawParameters(context);
             Graphic graphic = gameObject.currentGraphic();
             graphic.draw(drawParameters);

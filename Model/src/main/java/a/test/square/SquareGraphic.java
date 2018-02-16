@@ -25,8 +25,7 @@ public class SquareGraphic extends Graphic {
         double x = this.gameObject.getPosition().getX();
         double y = this.gameObject.getPosition().getY();
 
-//        drawParameters.getContext().setSize(width, height);
-        drawParameters.getContext().drawRect(x, y, width, height, "#ff0000", null);
+        drawParameters.getContext().drawRect(x, y, width, height, "0xFFFFFF", null);
     }
 
 }

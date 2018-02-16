@@ -8,9 +8,9 @@ public interface Canvas {
 
     void clear();
 
-    GraphicContext newGraphicContext();
-
     Dimension getViewport();
 
     GraphicContext newGraphicContext(Camera camera, Image currentImage);
+
+    void draw(Image currentScene);
 }

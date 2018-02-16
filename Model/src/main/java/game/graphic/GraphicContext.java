@@ -5,7 +5,7 @@ import game.graphic.image.Image;
 
 public interface GraphicContext {
 
-    void setSize(double width, double height);
+//    void setSize(double width, double height);
 
     void drawImage(Image image, double x, double y, double width, double height);
 

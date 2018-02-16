@@ -1,5 +1,6 @@
 package a.pointyandclicky.pointy;
 
+import a.test.square.SquareMovePattern;
 import game.gameobject.GameObject;
 import game.graphic.Graphic;
 import game.graphic.image.ImageContainer;
@@ -10,6 +11,7 @@ public class Pointy extends GameObject {
 
     public Pointy(Vector position) {
         super(position, new Dimension(200, 200));
+        this.movementPattern = new SquareMovePattern(this);
 
     }
 

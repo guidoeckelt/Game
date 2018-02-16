@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GameObjects>
+
+    <GameObject key="Pointy" class="a.pointyandclicky.pointy.Pointy">
+        <Parameter>
+            <Vector/>
+        </Parameter>
+    </GameObject>
+
+    <GameObject key="Clicky" class="a.pointyandclicky.clicky.Clicky">
+        <Parameter>
+            <Vector/>
+        </Parameter>
+    </GameObject>
+
+</GameObjects>

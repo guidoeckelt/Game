@@ -38,6 +38,7 @@ public class Image {
     }
 
     public Image(String filePath, int width, int height) throws IOException {
+
         this.file = new File(filePath);
         this.width = width;
         this.height = height;
@@ -47,6 +48,7 @@ public class Image {
     }
 
     private byte[] readBytesFromFile() throws IOException {
+
         return Files.readAllBytes(this.file.toPath());
     }
 
@@ -65,25 +67,6 @@ public class Image {
             pixels = new Pixel[1][1];
         }
         return pixels;
-    }
-
-    public void capture(Image other, int startX, int startY) {
-        int endX = other.getWidth();
-        int endY = other.getHeight();
-        //TODO check for start x and y if less than 0
-        if (startX + other.getWidth() > this.width - 1) {
-            endX = this.width - startX;
-        }
-        if (startY + other.getHeight() > this.height - 1) {
-            endY = this.height - startY;
-        }
-        for (int otherY = 0; otherY < endY; otherY++) {
-            for (int otherX = 0; otherX < endX; otherX++) {
-                int x = startX + otherX;
-                int y = startY + otherY;
-                this.pixels[y][x] = other.getPixel(otherX, otherY);
-            }
-        }
     }
 
     private void readPixels() throws IOException {
@@ -107,6 +90,28 @@ public class Image {
         }
     }
 
+    public void capture(Image other, int startX, int startY) {
+        this.capture(other, startX, startY, other.getWidth(), other.getHeight());
+    }
+
+    public void capture(Image other, int startX, int startY, int width, int height) {
+        int endX = width;
+        int endY = height;
+        //TODO check for start x and y if less than 0
+        if (startX + width > this.width - 1) {
+            endX = this.width - startX;
+        }
+        if (startY + height > this.height - 1) {
+            endY = this.height - startY;
+        }
+        for (int otherY = 0; otherY < endY; otherY++) {
+            for (int otherX = 0; otherX < endX; otherX++) {
+                int x = startX + otherX;
+                int y = startY + otherY;
+                this.pixels[y][x] = other.getPixel(otherX, otherY);
+            }
+        }
+    }
 
     protected BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
         BufferedImage scaledImage = null;
