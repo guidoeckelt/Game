@@ -4,6 +4,7 @@ import game.Camera;
 import game.Canvas;
 import game.graphic.GraphicContext;
 import game.graphic.image.Image;
+import game.graphic.image.MemoryImageConverter;
 import game.metric.Dimension;
 import swing.graphic.SwingGraphicContext;
 
@@ -42,16 +43,17 @@ public class SwingCanvas extends JPanel implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext() {
+    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
 
-        Graphics g2 = this.getGraphics().create(0, 0, this.width, this.height);
-        return new SwingGraphicContext(g2, null);
+        return new SwingGraphicContext(camera, currentImage);
     }
 
-    @Override
-    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
-        Graphics g2 = this.getGraphics().create(0, 0, this.width, this.height);
-        return new SwingGraphicContext(g2, currentImage);
+    public void draw(Image image) {
+
+//        this.clear();
+        java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
+        Graphics g = this.getGraphics().create();
+        g.drawImage(imageAwt, 0, 0, image.getWidth(), image.getHeight(), null);
     }
 
 }

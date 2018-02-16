@@ -23,12 +23,13 @@ public class FxGraphicContext implements GraphicContext {
     }
 
     @Override
-    public void setSize(double width, double height) {
-
+    public void drawImage(Image image, double x, double y) {
+        this.drawImage(image, x, y, image.getWidth(), image.getHeight());
     }
 
     @Override
     public void drawImage(Image image, double x, double y, double width, double height) {
+//        this.context.drawImage(image, x, y, width, height);
         for (int pixelY = 0; pixelY < image.getHeight(); pixelY++) {
             for (int pixelX = 0; pixelX < image.getWidth(); pixelX++) {
                 Pixel pixel = image.getPixel(pixelX, pixelY);
@@ -39,13 +40,8 @@ public class FxGraphicContext implements GraphicContext {
                 this.context.fillRect((int) x + pixelX, (int) y + pixelY, 1, 1);
             }
         }
-//        this.context.drawImage(image, x, y, width, height);
     }
 
-    @Override
-    public void drawImage(Image image, double x, double y) {
-
-    }
 
     private String getHexCode(int value) {
         String string = Integer.toHexString(value);

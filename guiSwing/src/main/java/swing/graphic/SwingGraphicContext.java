@@ -1,60 +1,50 @@
 package swing.graphic;
 
+import game.Camera;
 import game.graphic.GraphicContext;
 import game.graphic.image.Image;
-import game.graphic.image.MemoryImageConverter;
-
-import java.awt.*;
 
 public class SwingGraphicContext implements GraphicContext {
 
-    private final Image sceneImage;
-    private Graphics g;
-    private Graphics temp;
+    private Camera camera;
+    private Image canvasImage;
 
-    public SwingGraphicContext(Graphics g) {
-        this(g, null);
-    }
-
-    public SwingGraphicContext(Graphics g, Image currentImage) {
-        this.g = g;
-        this.sceneImage = currentImage;
-    }
-
-    @Override
-    public void setSize(double width, double height) {
-        this.temp = this.g.create();
+    public SwingGraphicContext(Camera camera, Image canvasImage) {
+        this.camera = camera;
+        this.canvasImage = canvasImage;
     }
 
     @Override
     public void drawImage(Image image, double x, double y, double width, double height) {
-        if (this.sceneImage != null) {
-            this.sceneImage.capture(image, (int) x, (int) y);
-            return;
-        }
-        java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
-        this.g.drawImage(imageAwt, (int) x, (int) y, (int) width, (int) height, null);
+        this.canvasImage.capture(image, (int) x, (int) y, (int) width, (int) height);
     }
 
     @Override
     public void drawImage(Image image, double x, double y) {
-        if (this.sceneImage != null) {
-            this.sceneImage.capture(image, (int) x, (int) y);
-            return;
-        }
-        java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
-        this.g.drawImage(imageAwt, (int) x, (int) y, image.getWidth(), image.getHeight(), null);
+        this.canvasImage.capture(image, (int) x, (int) y);
     }
 
     @Override
-    public void drawRect(double x, double y, double width, double height, String fillColor, String borderColor) {
+    public void drawRect(double startX, double startY, double width, double height, String fillColor, String borderColor) {
+        int endX = (int) (startX + width);
+        int endY = (int) (startY + height);
         if (fillColor != null) {
-            this.g.setColor(Color.decode(fillColor));
-            this.g.fillRect((int) x, (int) y, (int) width, (int) height);
+            for (int y = (int) startY; y < endY; y++) {
+                for (int x = (int) startX; x < endX; x++) {
+                    int int_argb = Integer.decode(fillColor);
+                    this.canvasImage.setPixel(x, y, int_argb);
+                }
+            }
         }
         if (borderColor != null) {
-            this.g.setColor(Color.decode(borderColor));
-            this.g.drawRect((int) x, (int) y, (int) width, (int) height);
+            for (int cycles = 0; cycles < 2; cycles++) {
+                for (int i = 0; i < width; i++) {
+                    this.canvasImage.setPixel(i, 0, Integer.decode(borderColor));
+                    this.canvasImage.setPixel(i, (int) height, Integer.decode(borderColor));
+                    this.canvasImage.setPixel(0, i, Integer.decode(borderColor));
+                    this.canvasImage.setPixel((int) width, i, Integer.decode(borderColor));
+                }
+            }
         }
     }
 }
