@@ -25,6 +25,11 @@ public class SwingGraphicContext implements GraphicContext {
     }
 
     @Override
+    public void drawText(String name, double x, double y, String color) {
+
+    }
+
+    @Override
     public void drawRect(double startX, double startY, double width, double height, String fillColor, String borderColor) {
         int endX = (int) (startX + width);
         int endY = (int) (startY + height);

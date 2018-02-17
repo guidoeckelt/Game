@@ -12,4 +12,7 @@ public interface GraphicContext {
     void drawImage(Image image, double x, double y);
 
     void drawRect(double x, double y, double width, double height, String fillColor, String borderColor);
+
+    void drawText(String name, double x, double y, String color);
+
 }

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Guido on 05.05.2016.
  */
-public abstract class GameObject {
+public abstract class GameObject implements game.graphic.Drawable {
 
     protected Vector position;
     protected Dimension size;
@@ -31,11 +31,13 @@ public abstract class GameObject {
 
     }
 
+    @Override
     public void createGraphics(ImageContainer imageContainer) {
 
         this.graphics.add(new NoGraphic());
     }
 
+    @Override
     public Graphic currentGraphic() {
 
         return this.graphics.get(0);
@@ -60,6 +62,10 @@ public abstract class GameObject {
 
     public void setSize(Dimension size) {
         this.size = size;
+    }
+
+    public String getName() {
+        return this.toString();
     }
 
 }

@@ -27,4 +27,9 @@ public class Clicky extends GameObject {
         return super.currentGraphic();
     }
 
+    @Override
+    public String getName() {
+        return "Clicky";
+    }
+
 }

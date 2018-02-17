@@ -8,6 +8,8 @@ import game.input.MouseButton;
 import game.input.MouseEvent;
 import game.media.Speaker;
 import game.movement.MovementParameter;
+import game.text.Conversation;
+import game.text.Line;
 
 import java.util.*;
 
@@ -87,6 +89,13 @@ public class Game {
         Scene newScene = reader.read(name);
         this.currentScene = newScene;
         this.loadedScenes.add(newScene);
+    }
+
+    private void playConversation() {
+        Line line = new Line(currentScene.getGameObjects().get(0), "Hey, I am Pointy. Nice to meet you.");
+        List<Line> lines = new ArrayList<Line>();
+        lines.add(line);
+        Conversation conversation = new Conversation(lines);
     }
 
     private void updateAllGameObjects() {

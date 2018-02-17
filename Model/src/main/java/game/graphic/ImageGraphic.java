@@ -3,13 +3,14 @@ package game.graphic;
 import game.gameobject.GameObject;
 import game.graphic.image.Image;
 
-public class ImageGraphic extends Graphic {
+public class ImageGraphic implements Graphic {
 
     private Image image;
+    private GameObject gameObject;
 
     public ImageGraphic(GameObject gameObject, Image image) {
 
-        super(gameObject);
+        this.gameObject = gameObject;
         this.image = image;
     }
 

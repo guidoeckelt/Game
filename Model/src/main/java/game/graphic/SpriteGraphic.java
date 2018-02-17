@@ -6,9 +6,9 @@ import game.graphic.image.Image;
 import java.util.Date;
 import java.util.List;
 
-public class SpriteGraphic extends Graphic {
+public class SpriteGraphic implements Graphic {
 
-
+    private GameObject gameObject;
     private List<Image> imageList;
     private int currentImageIndex;
     private Date lastChange;
@@ -16,11 +16,12 @@ public class SpriteGraphic extends Graphic {
 
     public SpriteGraphic(GameObject gameObject, List<Image> images, long spriteDelay) {
 
-        super(gameObject);
+        this.gameObject = gameObject;
         this.imageList = images;
+        this.spriteDelay = spriteDelay;
+
         this.currentImageIndex = 0;
         this.lastChange = new Date();
-        this.spriteDelay = spriteDelay;
     }
 
     @Override

@@ -4,6 +4,7 @@ import game.graphic.GraphicContext;
 import game.graphic.image.Image;
 import game.graphic.image.Pixel;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 public class FxGraphicContext implements GraphicContext {
@@ -29,6 +30,7 @@ public class FxGraphicContext implements GraphicContext {
 
     @Override
     public void drawImage(Image image, double x, double y, double width, double height) {
+
 //        this.context.drawImage(image, x, y, width, height);
         for (int pixelY = 0; pixelY < image.getHeight(); pixelY++) {
             for (int pixelX = 0; pixelX < image.getWidth(); pixelX++) {
@@ -42,6 +44,12 @@ public class FxGraphicContext implements GraphicContext {
         }
     }
 
+    @Override
+    public void drawText(String text, double x, double y, String color) {
+
+        this.context.setFill(Color.valueOf(color));
+        this.context.fillText(text, x, y);
+    }
 
     private String getHexCode(int value) {
         String string = Integer.toHexString(value);

@@ -27,4 +27,9 @@ public class Pointy extends GameObject {
         return super.currentGraphic();
     }
 
+    @Override
+    public String getName() {
+        return "Pointy";
+    }
+
 }
