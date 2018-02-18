@@ -3,8 +3,6 @@ package fx.view;
 import game.Camera;
 import game.Canvas;
 import game.graphic.GraphicContext;
-import game.graphic.image.Image;
-import game.graphic.image.MemoryImageConverter;
 import game.metric.Dimension;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -25,9 +23,9 @@ public class FxCanvas implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
+    public GraphicContext newGraphicContext(Camera camera) {
 
-        return new FxGraphicContext(this.context, currentImage);
+        return new FxGraphicContext(this.context);
     }
 
     @Override
@@ -37,10 +35,10 @@ public class FxCanvas implements Canvas {
     }
 
     @Override
-    public void draw(Image image) {
+    public void draw() {
 
-        javafx.scene.image.Image imageFx = new MemoryImageConverter(image).intoFx();
-        System.out.println(imageFx);
-        this.context.drawImage(imageFx, 0, 0);
+//        javafx.scene.image.Image imageFx = new MemoryImageConverter(image).intoFx();
+//        System.out.println(imageFx);
+//        this.context.drawImage(imageFx, 0, 0);
     }
 }

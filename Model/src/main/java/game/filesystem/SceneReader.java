@@ -1,5 +1,7 @@
-package game;
+package game.filesystem;
 
+import game.GameObjectIdentifier;
+import game.Scene;
 import game.gameobject.GameObject;
 import game.graphic.image.ImageContainer;
 import game.metric.Dimension;

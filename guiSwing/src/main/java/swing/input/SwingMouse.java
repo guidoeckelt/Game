@@ -3,8 +3,8 @@ package swing.input;
 import game.input.Mouse;
 import game.input.MouseButton;
 import game.metric.Vector;
-import swing.SwingCanvas;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,19 +13,19 @@ import java.util.List;
 
 public class SwingMouse implements Mouse {
 
-    private SwingCanvas canvas;
+    private JFrame window;
     private int posX;
     private int posY;
     private List<MouseButton> buttonsPressed;
     private List<game.input.MouseListener> listenerList;
 
-    public SwingMouse(SwingCanvas canvas) {
-        this.canvas = canvas;
+    public SwingMouse(JFrame window) {
+        this.window = window;
         this.posX = -1;
         this.posY = -1;
         this.buttonsPressed = new ArrayList<>();
         this.listenerList = new ArrayList<>();
-        this.canvas.addMouseMotionListener(new MouseMotionListener() {
+        this.window.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
 
@@ -38,7 +38,7 @@ public class SwingMouse implements Mouse {
                 updateListeners();
             }
         });
-        this.canvas.addMouseListener(new MouseListener() {
+        this.window.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 

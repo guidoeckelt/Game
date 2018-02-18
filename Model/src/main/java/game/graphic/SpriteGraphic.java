@@ -27,13 +27,8 @@ public class SpriteGraphic implements Graphic {
     @Override
     public void draw(DrawParameters drawParameters) {
 
-        double width = this.gameObject.getSize().getWidth();
-        double height = this.gameObject.getSize().getHeight();
-        double x = this.gameObject.getPosition().getX();
-        double y = this.gameObject.getPosition().getY();
         Image image = this.imageList.get(this.currentImageIndex);
-//        drawParameters.getContext().setSize(width, height);
-        drawParameters.getContext().drawImage(image, x, y, width, height);
+        drawParameters.getContext().drawImage(image, this.gameObject.getPosition(), this.gameObject.getSize());
         this.checkForNextImage();
     }
 

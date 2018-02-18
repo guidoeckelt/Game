@@ -3,24 +3,25 @@ package swing;
 import game.Camera;
 import game.Canvas;
 import game.graphic.GraphicContext;
-import game.graphic.image.Image;
-import game.graphic.image.MemoryImageConverter;
 import game.metric.Dimension;
 import swing.graphic.SwingGraphicContext;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class SwingCanvas extends JPanel implements Canvas {
 
     private int width;
     private int height;
+    private final BufferStrategy buffer;
 
-    public SwingCanvas(java.awt.Dimension size) {
+    public SwingCanvas(JFrame frame, java.awt.Dimension size) {
 
         this.width = size.width;
         this.height = size.height;
+        this.buffer = frame.getBufferStrategy();
         this.setSize(width, height);
         BufferedImage blankCursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -43,17 +44,16 @@ public class SwingCanvas extends JPanel implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext(Camera camera, Image currentImage) {
+    public GraphicContext newGraphicContext(Camera camera) {
 
-        return new SwingGraphicContext(camera, currentImage);
+        return new SwingGraphicContext(buffer, camera);
     }
 
-    public void draw(Image image) {
+    public void draw() {
 
-//        this.clear();
-        java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
-        Graphics g = this.getGraphics().create();
-        g.drawImage(imageAwt, 0, 0, image.getWidth(), image.getHeight(), null);
+        Graphics g = this.buffer.getDrawGraphics();
+        g.dispose();
+        buffer.show();
     }
 
 }

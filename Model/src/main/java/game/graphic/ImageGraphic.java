@@ -19,6 +19,6 @@ public class ImageGraphic implements Graphic {
         double x = this.gameObject.getPosition().getX();
         double y = this.gameObject.getPosition().getY();
 
-        drawParameters.getContext().drawImage(image, x, y);
+        drawParameters.getContext().drawImage(image, this.gameObject.getPosition());
     }
 }

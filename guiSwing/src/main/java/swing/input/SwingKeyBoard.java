@@ -1,11 +1,12 @@
 package swing.input;
 
 import game.input.KeyBoard;
-import swing.SwingCanvas;
+
+import javax.swing.*;
 
 public class SwingKeyBoard implements KeyBoard {
 
-    public SwingKeyBoard(SwingCanvas canvas) {
+    public SwingKeyBoard(JFrame canvas) {
     }
 
 }

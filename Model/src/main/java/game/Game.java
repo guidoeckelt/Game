@@ -1,17 +1,20 @@
 package game;
 
-import game.gameobject.GameObject;
+import game.filesystem.GameObjectDictionaryReader;
+import game.filesystem.SceneReader;
 import game.graphic.image.ImageContainer;
 import game.input.KeyBoard;
 import game.input.Mouse;
 import game.input.MouseButton;
 import game.input.MouseEvent;
 import game.media.Speaker;
-import game.movement.MovementParameter;
 import game.text.Conversation;
 import game.text.Line;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by Guido on 11.05.2016.
@@ -29,7 +32,6 @@ public class Game {
     private Scene currentScene;
     //GameLoop
     private Timer timer;
-    private TimerTask gameLoop;
     private long delay;
 
     public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
@@ -40,51 +42,36 @@ public class Game {
         this.speaker = speaker;
         this.gameObjectDictionary = new GameObjectDictionaryReader(this.rootPath).read();
         this.loadedScenes = new ArrayList<>();
-//        this.currentScene = new Scene(imageContainer, new Dimension(2000, 1000), new ArrayList<>());
-
         this.timer = new Timer(true);
-        this.gameLoop = new TimerTask() {
-            @Override
-            public void run() {
-                gameLoop();
-            }
-        };
         this.delay = 100;
-
         this.mouse.addListener(this::mouseMove);
     }
 
     public void start() {
+
         this.openScene("testscene");
-        timer.scheduleAtFixedRate(gameLoop, 0, delay);
+        timer.scheduleAtFixedRate(new GameLoop(this), 0, delay);
     }
 
     public void pause() {
+
         timer.cancel();
     }
 
     public void unpause() {
-        this.gameLoop = new TimerTask() {
-            @Override
-            public void run() {
-                gameLoop();
-            }
-        };
-        timer.scheduleAtFixedRate(gameLoop, 0, delay);
-    }
 
-    private void gameLoop() {
-
-        this.updateAllGameObjects();
+        timer.scheduleAtFixedRate(new GameLoop(this), 0, delay);
     }
 
     public void mouseMove(MouseEvent event) {
+
         if (event.getButton().contains(MouseButton.MIDDLE)) {
             System.out.println("mitte");
         }
     }
 
     private void openScene(String name) {
+
         SceneReader reader = new SceneReader(this.rootPath, this.gameObjectDictionary, imageContainer);
         Scene newScene = reader.read(name);
         this.currentScene = newScene;
@@ -92,19 +79,11 @@ public class Game {
     }
 
     private void playConversation() {
+
         Line line = new Line(currentScene.getGameObjects().get(0), "Hey, I am Pointy. Nice to meet you.");
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
         Conversation conversation = new Conversation(lines);
-    }
-
-    private void updateAllGameObjects() {
-
-        List<GameObject> gameObjects = this.currentScene.getGameObjects();
-        MovementParameter movementParameter = new MovementParameter(gameObjects);
-        for (GameObject gameObject : gameObjects) {
-            gameObject.update(movementParameter);
-        }
     }
 
     public Scene getCurrentScene() {
@@ -118,4 +97,5 @@ public class Game {
     public ImageContainer getImageContainer() {
         return imageContainer;
     }
+
 }

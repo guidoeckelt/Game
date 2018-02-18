@@ -2,17 +2,17 @@ package game.graphic;
 
 
 import game.graphic.image.Image;
+import game.metric.Dimension;
+import game.metric.Vector;
 
 public interface GraphicContext {
 
-//    void setSize(double width, double height);
+    void drawImage(Image image, Vector position);
 
-    void drawImage(Image image, double x, double y, double width, double height);
+    void drawImage(Image image, Vector position, Dimension size);
 
-    void drawImage(Image image, double x, double y);
+    void drawRect(Vector position, Dimension size, String fillColor, String borderColor);
 
-    void drawRect(double x, double y, double width, double height, String fillColor, String borderColor);
-
-    void drawText(String name, double x, double y, String color);
+    void drawText(String name, Vector position, String color);
 
 }

@@ -3,6 +3,7 @@ package game.text;
 
 import game.graphic.DrawParameters;
 import game.graphic.Graphic;
+import game.metric.Vector;
 
 
 public class LineGraphic implements Graphic {
@@ -24,13 +25,12 @@ public class LineGraphic implements Graphic {
     public void draw(DrawParameters drawParameters) {
 
         String name = this.line.getSpeakerName();
-        double x = 0;
-        double y = this.lineStartY;
-        drawParameters.getContext().drawText(name, x, y, this.defaultColor);
-        String nextLineContent = this.line.getNextLineContent();
-        x = this.nameEndX + 5;
-        drawParameters.getContext().drawText(nextLineContent, x, y, this.defaultColor);
+        Vector namePosition = new Vector(0, this.lineStartY);
+        drawParameters.getContext().drawText(name, namePosition, this.defaultColor);
 
+        String nextLineContent = this.line.getNextLineContent();
+        Vector contentPosition = new Vector(this.nameEndX + 5, this.lineStartY);
+        drawParameters.getContext().drawText(nextLineContent, contentPosition, this.defaultColor);
     }
 
 }

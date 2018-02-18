@@ -1,5 +1,6 @@
-package game;
+package game.filesystem;
 
+import game.GameObjectIdentifier;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

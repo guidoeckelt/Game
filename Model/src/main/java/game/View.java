@@ -39,15 +39,14 @@ public class View {
     }
 
     private void renderLoop() {
-        int width = (int) this.canvas.getViewport().getWidth();
-        int height = (int) this.canvas.getViewport().getHeight();
-        Image canvasImage = new Image(width, height);
-        this.drawBackground(canvasImage);
+
+        GraphicContext context = this.canvas.newGraphicContext(camera);
+        this.drawBackground(context);
         if (game.getCurrentScene() != null) {
-            this.drawGameObjects(game.getCurrentScene().getGameObjects(), canvasImage);
+            this.drawGameObjects(context, game.getCurrentScene().getGameObjects());
         }
-        this.drawMouse(game.getMouse(), canvasImage);
-        this.canvas.draw(canvasImage);
+        this.drawMouse(context, game.getMouse());
+        this.canvas.draw();
 
         TimerTask task = new TimerTask() {
             @Override
@@ -60,33 +59,31 @@ public class View {
     }
 
 
-    private void drawBackground(Image currentImage) {
-        for (int y = 0; y < currentImage.getHeight(); y++) {
-            for (int x = 0; x < currentImage.getWidth(); x++) {
-                currentImage.setPixel(x, y, 0xff000000);
-            }
-        }
+    private void drawBackground(GraphicContext context) {
+
+        context.drawRect(new Vector(0, 0), this.canvas.getViewport(), "#000000", null);
     }
 
-    private void drawGameObjects(List<GameObject> gameObjects, Image canvasImage) {
+    private void drawGameObjects(GraphicContext context, List<GameObject> gameObjects) {
+
         for (GameObject gameObject : gameObjects) {
             if (!camera.isGameObjectVisible(gameObject)) {
                 continue;
             }
-            GraphicContext context = this.canvas.newGraphicContext(this.camera, canvasImage);
             DrawParameters drawParameters = new DrawParameters(context);
             Graphic graphic = gameObject.currentGraphic();
             graphic.draw(drawParameters);
         }
     }
 
-    private void drawMouse(Mouse mouse, Image currentImage) {
+    private void drawMouse(GraphicContext context, Mouse mouse) {
+
         Vector position = mouse.getPosition();
         if (position.getX() < 0 || position.getY() < 0) {
             return;
         }
         Image image = this.game.getImageContainer().loadImage("Cursor", "cursor-2.png");
-        currentImage.capture(image, (int) position.getX(), (int) position.getY());
+        context.drawImage(image, position);
     }
 
 }

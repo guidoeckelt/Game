@@ -1,7 +1,6 @@
 package game;
 
 import game.graphic.GraphicContext;
-import game.graphic.image.Image;
 import game.metric.Dimension;
 
 public interface Canvas {
@@ -10,7 +9,7 @@ public interface Canvas {
 
     Dimension getViewport();
 
-    GraphicContext newGraphicContext(Camera camera, Image currentImage);
+    GraphicContext newGraphicContext(Camera camera);
 
-    void draw(Image currentScene);
+    void draw();
 }

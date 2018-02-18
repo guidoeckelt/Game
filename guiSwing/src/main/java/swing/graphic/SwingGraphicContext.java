@@ -3,53 +3,65 @@ package swing.graphic;
 import game.Camera;
 import game.graphic.GraphicContext;
 import game.graphic.image.Image;
+import game.graphic.image.MemoryImageConverter;
+import game.metric.Dimension;
+import game.metric.Vector;
+
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class SwingGraphicContext implements GraphicContext {
 
+    private final BufferStrategy buffer;
     private Camera camera;
-    private Image canvasImage;
 
-    public SwingGraphicContext(Camera camera, Image canvasImage) {
+    public SwingGraphicContext(BufferStrategy buffer, Camera camera) {
+        this.buffer = buffer;
         this.camera = camera;
-        this.canvasImage = canvasImage;
     }
 
     @Override
-    public void drawImage(Image image, double x, double y, double width, double height) {
-        this.canvasImage.capture(image, (int) x, (int) y, (int) width, (int) height);
+    public void drawImage(Image image, Vector position) {
+
+        this.drawImage(image, position, new Dimension(image.getWidth(), image.getHeight()));
     }
 
     @Override
-    public void drawImage(Image image, double x, double y) {
-        this.canvasImage.capture(image, (int) x, (int) y);
+    public void drawImage(Image image, Vector position, Dimension size) {
+
+        int intX = (int) position.getX();
+        int intY = (int) position.getY();
+        int intWidth = (int) size.getWidth();
+        int intHeight = (int) size.getHeight();
+        Graphics g = this.buffer.getDrawGraphics();
+        java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
+        g.drawImage(imageAwt, intX, intY, intWidth, intHeight, null);
     }
 
     @Override
-    public void drawText(String name, double x, double y, String color) {
+    public void drawText(String name, Vector position, String color) {
+
 
     }
 
     @Override
-    public void drawRect(double startX, double startY, double width, double height, String fillColor, String borderColor) {
-        int endX = (int) (startX + width);
-        int endY = (int) (startY + height);
+    public void drawRect(Vector position, Dimension size, String fillColor, String borderColor) {
+
+        int intX = (int) position.getX();
+        int intY = (int) position.getY();
+        int intWidth = (int) size.getWidth();
+        int intHeight = (int) size.getHeight();
+        Graphics g = this.buffer.getDrawGraphics();
         if (fillColor != null) {
-            for (int y = (int) startY; y < endY; y++) {
-                for (int x = (int) startX; x < endX; x++) {
-                    int int_argb = Integer.decode(fillColor);
-                    this.canvasImage.setPixel(x, y, int_argb);
-                }
-            }
+            Color color = Color.decode(fillColor);
+            g.setColor(color);
+            g.fillRect(intX, intY, intWidth, intHeight);
         }
         if (borderColor != null) {
-            for (int cycles = 0; cycles < 2; cycles++) {
-                for (int i = 0; i < width; i++) {
-                    this.canvasImage.setPixel(i, 0, Integer.decode(borderColor));
-                    this.canvasImage.setPixel(i, (int) height, Integer.decode(borderColor));
-                    this.canvasImage.setPixel(0, i, Integer.decode(borderColor));
-                    this.canvasImage.setPixel((int) width, i, Integer.decode(borderColor));
-                }
-            }
+            Color color = Color.decode(borderColor);
+            g.setColor(color);
+            g.drawRect(intX, intY, intWidth, intHeight);
         }
     }
+
 }

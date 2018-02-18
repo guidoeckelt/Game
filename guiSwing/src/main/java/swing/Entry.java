@@ -14,18 +14,17 @@ public class Entry {
 
     public static void main(String[] args) {
 
+        //init
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-        SwingCanvas canvas = new SwingCanvas(defaultToolkit.getScreenSize());
-        Mouse mouse = new SwingMouse(canvas);
-        KeyBoard keyBoard = new SwingKeyBoard(canvas);
+        Window window = new Window(defaultToolkit.getScreenSize());
+        SwingCanvas canvas = new SwingCanvas(window, defaultToolkit.getScreenSize());
+        Mouse mouse = new SwingMouse(window);
+        KeyBoard keyBoard = new SwingKeyBoard(window);
         Speaker speaker = new Speaker();
         View view = new View(canvas);
         Game game = new Game(mouse, keyBoard, speaker);
-        Window window = new Window(defaultToolkit.getScreenSize(), canvas);
-        window.show();
+        //start
         view.render(game);
         game.start();
-        String filePath = "Rooted\\01 Titelnummer 1.wav";
-//        speaker.play(filePath);
     }
 }

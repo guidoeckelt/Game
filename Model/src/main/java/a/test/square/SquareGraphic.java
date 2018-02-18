@@ -21,12 +21,9 @@ public class SquareGraphic implements Graphic {
     @Override
     public void draw(DrawParameters drawParameters) {
 
-        double width = this.square.getSize().getWidth();
-        double height = this.square.getSize().getHeight();
-        double x = this.square.getPosition().getX();
-        double y = this.square.getPosition().getY();
-
-        drawParameters.getContext().drawRect(x, y, width, height, "0xFFFFFF", null);
+        drawParameters.getContext().drawRect(
+                this.square.getPosition(), this.square.getSize()
+                , "0xFFFFFF", null);
     }
 
 }
