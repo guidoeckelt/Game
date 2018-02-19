@@ -49,7 +49,7 @@ public class SwingCanvas extends JPanel implements Canvas {
         return new SwingGraphicContext(buffer, camera);
     }
 
-    public void draw() {
+    public void finalizeDrawing() {
 
         Graphics g = this.buffer.getDrawGraphics();
         g.dispose();

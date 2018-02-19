@@ -11,5 +11,5 @@ public interface Canvas {
 
     GraphicContext newGraphicContext(Camera camera);
 
-    void draw();
+    void finalizeDrawing();
 }

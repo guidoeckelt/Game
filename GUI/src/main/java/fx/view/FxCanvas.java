@@ -35,7 +35,7 @@ public class FxCanvas implements Canvas {
     }
 
     @Override
-    public void draw() {
+    public void finalizeDrawing() {
 
 //        javafx.scene.image.Image imageFx = new MemoryImageConverter(image).intoFx();
 //        System.out.println(imageFx);

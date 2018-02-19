@@ -27,7 +27,7 @@ public class View {
     public View(Canvas canvas) {
 
         this.timer = new Timer(true);
-        this.delay = 10;
+        this.delay = 1;
 
         this.canvas = canvas;
         this.camera = new Camera(new Vector(0, 0), canvas.getViewport());
@@ -46,7 +46,7 @@ public class View {
             this.drawGameObjects(context, game.getCurrentScene().getGameObjects());
         }
         this.drawMouse(context, game.getMouse());
-        this.canvas.draw();
+        this.canvas.finalizeDrawing();
 
         TimerTask task = new TimerTask() {
             @Override

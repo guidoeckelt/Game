@@ -138,7 +138,7 @@ public class OpenGLCanvas extends GLCanvas implements GLEventListener {
         // Draw sphere
         gl.glColor3f(0.3f, 0.5f, 1f);
         GLUquadric earth = glu.gluNewQuadric();
-        glu.gluQuadricDrawStyle(earth, GLU.GLU_FILL); // possible draw styles: FILL, LINE, POINT
+        glu.gluQuadricDrawStyle(earth, GLU.GLU_FILL); // possible finalizeDrawing styles: FILL, LINE, POINT
         glu.gluQuadricNormals(earth, GLU.GLU_FLAT);
         glu.gluQuadricOrientation(earth, GLU.GLU_OUTSIDE);
         final float radius = 6.378f;
