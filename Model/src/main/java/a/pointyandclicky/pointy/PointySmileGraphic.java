@@ -9,7 +9,7 @@ public class PointySmileGraphic extends ImageGraphic {
         super(
                 pointy,
                 imageContainer.loadImage(
-                        "PointySmileFrontPixel"
+                        "PointyFrontSmilePixel"
                         , "pointy\\Front_Smile_32x32.png"
                         , (int) pointy.getSize().getWidth()
                         , (int) pointy.getSize().getHeight()

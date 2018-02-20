@@ -5,7 +5,6 @@ import game.filesystem.SceneReader;
 import game.graphic.image.ImageContainer;
 import game.input.KeyBoard;
 import game.input.Mouse;
-import game.input.MouseButton;
 import game.input.MouseEvent;
 import game.media.Speaker;
 import game.text.Conversation;
@@ -65,9 +64,6 @@ public class Game {
 
     public void mouseMove(MouseEvent event) {
 
-        if (event.getButton().contains(MouseButton.MIDDLE)) {
-            System.out.println("mitte");
-        }
     }
 
     private void openScene(String name) {
@@ -81,7 +77,7 @@ public class Game {
     private void playConversation() {
 
         Line line = new Line(currentScene.getGameObjects().get(0), "Hey, I am Pointy. Nice to meet you.");
-        List<Line> lines = new ArrayList<Line>();
+        List<Line> lines = new ArrayList<>();
         lines.add(line);
         Conversation conversation = new Conversation(lines);
     }

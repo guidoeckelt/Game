@@ -61,7 +61,7 @@ public class View {
 
     private void drawBackground(GraphicContext context) {
 
-        context.drawRect(new Vector(0, 0), this.canvas.getViewport(), "#000000", null);
+        context.drawRect(new Vector(0, 0), this.canvas.getViewport(), "#AAAAAA", null);
     }
 
     private void drawGameObjects(GraphicContext context, List<GameObject> gameObjects) {
@@ -82,7 +82,7 @@ public class View {
         if (position.getX() < 0 || position.getY() < 0) {
             return;
         }
-        Image image = this.game.getImageContainer().loadImage("Cursor", "cursor-2.png");
+        Image image = this.game.getImageContainer().loadImage("Cursor", "cursor.png");
         context.drawImage(image, position);
     }
 
