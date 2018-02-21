@@ -24,17 +24,17 @@ public class Line {
     }
 
     public String getNextLineContent() {
-        int lastChar = this.content.length() - 1;
+        int contextLength = this.content.length();
         int end = this.index + this.maxCharactar;
-        if (end > lastChar) {
-            end = lastChar - this.index;
+        if (end > contextLength) {
+            end = contextLength;
         }
         String nextText = this.content.substring(this.index, end);
-        this.index += end;
-        if (this.index == lastChar) {
+//        this.index += end;
+        if (this.index == contextLength) {
             this.isFinished = true;
         }
-        return nextText;
+        return this.content;
     }
 
     public boolean isFinished() {

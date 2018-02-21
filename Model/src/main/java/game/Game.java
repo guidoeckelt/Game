@@ -1,7 +1,10 @@
 package game;
 
-import game.filesystem.GameObjectDictionaryReader;
+import game.filesystem.GameObjectFactoryDictionaryReader;
 import game.filesystem.SceneReader;
+import game.gameobject.GameObject;
+import game.gameobject.GameObjectFactory;
+import game.graphic.Graphic;
 import game.graphic.image.ImageContainer;
 import game.input.KeyBoard;
 import game.input.Mouse;
@@ -13,7 +16,6 @@ import game.text.Line;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Created by Guido on 11.05.2016.
@@ -22,44 +24,45 @@ public class Game {
 
     private String rootPath = "D:\\DevGame\\";
 
-    private ImageContainer imageContainer;
     private Mouse mouse;
     private KeyBoard keyBoard;
     private Speaker speaker;
-    private Hashtable<String, GameObjectIdentifier> gameObjectDictionary;
+    private ImageContainer imageContainer;
+    private GameLoop gameLoop;
+    private Hashtable<String, GameObjectFactory> gameObjectFactoryDictionary;
     private List<Scene> loadedScenes;
     private Scene currentScene;
-    //GameLoop
-    private Timer timer;
-    private long delay;
+    private List<Conversation> loadedConverations;
+    private Conversation currentConversation;
 
     public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
 
-        this.imageContainer = new ImageContainer();
         this.mouse = mouse;
         this.keyBoard = keyBoard;
         this.speaker = speaker;
-        this.gameObjectDictionary = new GameObjectDictionaryReader(this.rootPath).read();
+        this.imageContainer = new ImageContainer();
+        this.gameLoop = new GameLoop(this);
+        this.gameObjectFactoryDictionary = new GameObjectFactoryDictionaryReader(this.rootPath).read();
         this.loadedScenes = new ArrayList<>();
-        this.timer = new Timer(true);
-        this.delay = 100;
-        this.mouse.addListener(this::mouseMove);
+        this.loadedConverations = new ArrayList<>();
     }
 
     public void start() {
 
+        this.mouse.addListener(this::mouseMove);
         this.openScene("testscene");
-        timer.scheduleAtFixedRate(new GameLoop(this), 0, delay);
+        this.gameLoop.start();
+        this.playConversation();
+
     }
 
-    public void pause() {
+    public void toggle() {
 
-        timer.cancel();
-    }
-
-    public void unpause() {
-
-        timer.scheduleAtFixedRate(new GameLoop(this), 0, delay);
+        if (this.gameLoop.isRunning()) {
+            this.gameLoop.pause();
+        } else {
+            this.gameLoop.unpause();
+        }
     }
 
     public void mouseMove(MouseEvent event) {
@@ -68,7 +71,7 @@ public class Game {
 
     private void openScene(String name) {
 
-        SceneReader reader = new SceneReader(this.rootPath, this.gameObjectDictionary, imageContainer);
+        SceneReader reader = new SceneReader(this.rootPath, this.gameObjectFactoryDictionary, imageContainer);
         Scene newScene = reader.read(name);
         this.currentScene = newScene;
         this.loadedScenes.add(newScene);
@@ -76,10 +79,14 @@ public class Game {
 
     private void playConversation() {
 
-        Line line = new Line(currentScene.getGameObjects().get(0), "Hey, I am Pointy. Nice to meet you.");
         List<Line> lines = new ArrayList<>();
+        Line line = new Line(currentScene.getGameObjects().get(0), "Hey, I am Pointy. Nice to meet you.");
         lines.add(line);
+        Line line2 = new Line(currentScene.getGameObjects().get(1), "And I am Clicky. We are best buddys since i can think of");
+        lines.add(line2);
         Conversation conversation = new Conversation(lines);
+        this.currentConversation = conversation;
+        this.loadedConverations.add(conversation);
     }
 
     public Scene getCurrentScene() {
@@ -92,6 +99,21 @@ public class Game {
 
     public ImageContainer getImageContainer() {
         return imageContainer;
+    }
+
+    public GameStatus getStatus() {
+
+        List<Graphic> graphics = new ArrayList<>();
+        if (this.currentConversation != null) {
+            graphics.add(this.currentConversation.getGraphic());
+        }
+        if (this.currentScene != null) {
+            List<GameObject> allGameObjects = this.currentScene.getGameObjects();
+            for (GameObject gameObject : allGameObjects) {
+                graphics.add(gameObject.currentGraphic());
+            }
+        }
+        return new GameStatus(graphics);
     }
 
 }

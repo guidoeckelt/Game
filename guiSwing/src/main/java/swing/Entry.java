@@ -16,6 +16,7 @@ public class Entry {
 
         //init
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+//        System.out.println(defaultToolkit.getScreenSize());
         Window window = new Window(defaultToolkit.getScreenSize());
         SwingCanvas canvas = new SwingCanvas(window, defaultToolkit.getScreenSize());
         Mouse mouse = new SwingMouse(window);

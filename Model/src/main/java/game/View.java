@@ -1,6 +1,5 @@
 package game;
 
-import game.gameobject.GameObject;
 import game.graphic.DrawParameters;
 import game.graphic.Graphic;
 import game.graphic.GraphicContext;
@@ -40,10 +39,11 @@ public class View {
 
     private void renderLoop() {
 
+        GameStatus status = this.game.getStatus();
         GraphicContext context = this.canvas.newGraphicContext(camera);
         this.drawBackground(context);
         if (game.getCurrentScene() != null) {
-            this.drawGameObjects(context, game.getCurrentScene().getGameObjects());
+            this.drawGameGraphics(context, status.getGraphics());
         }
         this.drawMouse(context, game.getMouse());
         this.canvas.finalizeDrawing();
@@ -64,14 +64,13 @@ public class View {
         context.drawRect(new Vector(0, 0), this.canvas.getViewport(), "#AAAAAA", null);
     }
 
-    private void drawGameObjects(GraphicContext context, List<GameObject> gameObjects) {
+    private void drawGameGraphics(GraphicContext context, List<Graphic> gameObjects) {
 
-        for (GameObject gameObject : gameObjects) {
-            if (!camera.isGameObjectVisible(gameObject)) {
-                continue;
-            }
+        for (Graphic graphic : gameObjects) {
+//            if (!camera.isGameObjectVisible(graphic)) {
+//                continue;
+//            }
             DrawParameters drawParameters = new DrawParameters(context);
-            Graphic graphic = gameObject.currentGraphic();
             graphic.draw(drawParameters);
         }
     }

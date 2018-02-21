@@ -1,21 +1,37 @@
-package game;
+package game.gameobject;
 
-import game.gameobject.GameObject;
 import game.metric.Vector;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class GameObjectIdentifier {
+public class GameObjectFactory {
 
     private String classPath;
-    private List<Class> parameter;
+    private List<Class> parameterClasses;
 
-    public GameObjectIdentifier(String classPath, List<Class> parameter) {
+    public GameObjectFactory(String classPath, List<Class> parameterClasses) {
+
         this.classPath = classPath;
-        this.parameter = parameter;
+        this.parameterClasses = parameterClasses;
     }
 
+
+    public boolean needs(String parameterClassName) {
+
+        return this.parameterClasses.stream().anyMatch(c -> c.getSimpleName().equals(parameterClassName));
+    }
+
+    public Class getParamterClass(String parameterChildNodeName) {
+        Class pC = null;
+        for (Class c : this.parameterClasses) {
+            if (c.getSimpleName().equals(parameterChildNodeName)) {
+                pC = c;
+                break;
+            }
+        }
+        return pC;
+    }
 
     public GameObject create(List<Object> parameter) {
 
@@ -23,6 +39,7 @@ public class GameObjectIdentifier {
         Vector position = (Vector) parameter.get(0);
         try {
             gameObject = (GameObject) Class.forName(this.classPath).getConstructor(Vector.class).newInstance(position);
+//            gameObject = (GameObject) Class.forName(this.classPath).getConstructor(this.parameterClasses).newInstance(parameter);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

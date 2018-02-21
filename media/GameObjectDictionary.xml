@@ -3,13 +3,13 @@
 
     <GameObject key="Pointy" class="a.pointyandclicky.pointy.Pointy">
         <Parameter>
-            <Vector/>
+            <Vector classPath="game.metric"/>
         </Parameter>
     </GameObject>
 
     <GameObject key="Clicky" class="a.pointyandclicky.clicky.Clicky">
         <Parameter>
-            <Vector/>
+            <Vector classPath="game.metric"/>
         </Parameter>
     </GameObject>
 

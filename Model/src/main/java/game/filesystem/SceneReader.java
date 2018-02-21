@@ -1,8 +1,8 @@
 package game.filesystem;
 
-import game.GameObjectIdentifier;
 import game.Scene;
 import game.gameobject.GameObject;
+import game.gameobject.GameObjectFactory;
 import game.graphic.image.ImageContainer;
 import game.metric.Dimension;
 import game.metric.Vector;
@@ -23,9 +23,9 @@ public class SceneReader {
 
     private String rootPath;
     private ImageContainer imageContainer;
-    private Hashtable<String, GameObjectIdentifier> gameObjectDictionary;
+    private Hashtable<String, GameObjectFactory> gameObjectDictionary;
 
-    public SceneReader(String rootPath, Hashtable<String, GameObjectIdentifier> gameObjectDictionary, ImageContainer imageContainer) {
+    public SceneReader(String rootPath, Hashtable<String, GameObjectFactory> gameObjectDictionary, ImageContainer imageContainer) {
         this.rootPath = rootPath;
         this.gameObjectDictionary = gameObjectDictionary;
         this.imageContainer = imageContainer;
@@ -55,33 +55,59 @@ public class SceneReader {
         int width = Integer.decode(sizeNode.getAttributes().getNamedItem("width").getTextContent());
         int height = Integer.decode(sizeNode.getAttributes().getNamedItem("height").getTextContent());
         Dimension size = new Dimension(width, height);
+
         NodeList gameObjectNodeList = document.getElementsByTagName("GameObject");
-        List<GameObject> gameObjects = new ArrayList<>();
-        Scene scene = null;
-        for (int i = 0; i < gameObjectNodeList.getLength(); i++) {
-            Node gameObjectNode = gameObjectNodeList.item(i);
+        List<GameObject> sceneGameObjects = new ArrayList<>();
+        for (int gameObjectIndex = 0; gameObjectIndex < gameObjectNodeList.getLength(); gameObjectIndex++) {
+            Node gameObjectNode = gameObjectNodeList.item(gameObjectIndex);
             String key = gameObjectNode.getAttributes().getNamedItem("key").getTextContent();
-            GameObjectIdentifier identifier = this.gameObjectDictionary.get(key);
+            GameObjectFactory gameObjectFactory = this.gameObjectDictionary.get(key);
             List<Object> parameters = new ArrayList<>();
-            NodeList gameObjectNodeChildren = gameObjectNode.getChildNodes();
-            Node parameterRootNode = gameObjectNodeChildren.item(1);
-            NodeList parameterNodeList = parameterRootNode.getChildNodes();
-            for (int ii = 0; ii < parameterNodeList.getLength(); ii++) {
-                Node parameterNode = parameterNodeList.item(ii);
-                if (parameterNode.getNodeName().equals("Vector")) {
-                    double x = Double.valueOf(parameterNode.getAttributes().getNamedItem("x").getTextContent());
-                    double y = Double.valueOf(parameterNode.getAttributes().getNamedItem("y").getTextContent());
+            NodeList gameObjectChildNodes = gameObjectNode.getChildNodes();
+            Node parameterNode = gameObjectChildNodes.item(1);
+            NodeList parameterChildNodes = parameterNode.getChildNodes();
+            for (int parameterIndex = 0; parameterIndex < parameterChildNodes.getLength(); parameterIndex++) {
+                Node parameterChildNode = parameterChildNodes.item(parameterIndex);
+                String parameterChildNodeName = parameterChildNode.getNodeName();
+                if (parameterChildNodeName.equals("Vector")) {
+                    double x = Double.valueOf(parameterChildNode.getAttributes().getNamedItem("x").getTextContent());
+                    double y = Double.valueOf(parameterChildNode.getAttributes().getNamedItem("y").getTextContent());
                     Vector vector = new Vector(x, y);
                     parameters.add(vector);
                 }
+//                if (gameObjectFactory.needs(parameterChildNodeName)) {
+//                    Class parameterClass = gameObjectFactory.getParamterClass(parameterChildNodeName);
+////                    System.out.println("parameterClassName :" + parameterClass.getSimpleName());
+//                    Constructor parameterConstructor = null;
+//                    for (Constructor constructor : parameterClass.getConstructors()) {
+//                        if (constructor.getParameterCount() == parameterChildNode.getAttributes().getLength()) {
+//                            parameterConstructor = constructor;
+//                            break;
+//                        }
+//                    }
+//                    List<Object> parameters2 = new ArrayList<>();
+//                    for (int i = 0; i < parameterChildNode.getAttributes().getLength(); i++) {
+//                        Node pNode = parameterChildNode.getAttributes().item(i);
+//                        Object temp = Double.valueOf(pNode.getTextContent());
+//                        parameters2.add(temp);
+//                    }
+//                    try {
+//                        Object parameter = parameterConstructor.newInstance(parameters2);
+//                        parameters.add(parameter);
+//                    } catch (InstantiationException e) {
+//                        e.printStackTrace();
+//                    } catch (IllegalAccessException e) {
+//                        e.printStackTrace();
+//                    } catch (InvocationTargetException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
             }
-            GameObject gameObject = identifier.create(parameters);
+            GameObject gameObject = gameObjectFactory.create(parameters);
             gameObject.createGraphics(imageContainer);
-            gameObjects.add(gameObject);
+            sceneGameObjects.add(gameObject);
         }
-        scene = new Scene(imageContainer, size, gameObjects);
-        return scene;
-
+        return new Scene(imageContainer, size, sceneGameObjects);
     }
 
 }

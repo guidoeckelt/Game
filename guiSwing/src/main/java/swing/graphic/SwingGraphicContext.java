@@ -8,6 +8,7 @@ import game.metric.Dimension;
 import game.metric.Vector;
 
 import java.awt.*;
+import java.awt.font.GlyphVector;
 import java.awt.image.BufferStrategy;
 
 public class SwingGraphicContext implements GraphicContext {
@@ -33,16 +34,29 @@ public class SwingGraphicContext implements GraphicContext {
         int intY = (int) position.getY();
         int intWidth = (int) size.getWidth();
         int intHeight = (int) size.getHeight();
-        Graphics g = this.buffer.getDrawGraphics();
+        Graphics2D g = (Graphics2D) this.buffer.getDrawGraphics();
         java.awt.Image imageAwt = new MemoryImageConverter(image).intoAwt();
         g.drawImage(imageAwt, intX, intY, intWidth, intHeight, null);
     }
 
     @Override
-    public void drawText(String name, Vector position, String color) {
+    public void drawText(String text, Vector position, Font font, String fillColor, double borderSize) {
 
+        int intX = (int) position.getX();
+        int intY = (int) position.getY();
+        Graphics2D g = ((Graphics2D) this.buffer.getDrawGraphics());
+        GlyphVector gv = font.createGlyphVector(g.getFontRenderContext(), text);
+        Shape textShape = gv.getOutline();
+        g.translate(intX, intY + textShape.getBounds2D().getHeight());
+        this.setStroke(g, (float) borderSize);
+        this.setColor(g, fillColor);
+        g.fill(textShape);
+        this.setColor(g, "#000000");
+        g.draw(textShape);
+//        g.translate(-intX, -intY);
 
     }
+
 
     @Override
     public void drawRect(Vector position, Dimension size, String fillColor, String borderColor) {
@@ -51,17 +65,25 @@ public class SwingGraphicContext implements GraphicContext {
         int intY = (int) position.getY();
         int intWidth = (int) size.getWidth();
         int intHeight = (int) size.getHeight();
-        Graphics g = this.buffer.getDrawGraphics();
+        Graphics2D g = (Graphics2D) this.buffer.getDrawGraphics();
         if (fillColor != null) {
-            Color color = Color.decode(fillColor);
-            g.setColor(color);
+            this.setColor(g, fillColor);
             g.fillRect(intX, intY, intWidth, intHeight);
         }
         if (borderColor != null) {
-            Color color = Color.decode(borderColor);
-            g.setColor(color);
+            this.setColor(g, borderColor);
             g.drawRect(intX, intY, intWidth, intHeight);
         }
+    }
+
+    private void setColor(Graphics2D g, String color) {
+
+        g.setColor(Color.decode(color));
+    }
+
+    private void setStroke(Graphics2D g, float size) {
+
+        g.setStroke(new BasicStroke(size));
     }
 
 }
