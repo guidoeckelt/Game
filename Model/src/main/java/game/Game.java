@@ -32,7 +32,7 @@ public class Game {
     private Hashtable<String, GameObjectFactory> gameObjectFactoryDictionary;
     private List<Scene> loadedScenes;
     private Scene currentScene;
-    private List<Conversation> loadedConverations;
+    private List<Conversation> loadedConversations;
     private Conversation currentConversation;
 
     public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
@@ -44,7 +44,7 @@ public class Game {
         this.gameLoop = new GameLoop(this);
         this.gameObjectFactoryDictionary = new GameObjectFactoryDictionaryReader(this.rootPath).read();
         this.loadedScenes = new ArrayList<>();
-        this.loadedConverations = new ArrayList<>();
+        this.loadedConversations = new ArrayList<>();
     }
 
     public void start() {
@@ -67,6 +67,7 @@ public class Game {
 
     public void mouseMove(MouseEvent event) {
 
+//        System.out.println(event.getPosition());
     }
 
     private void openScene(String name) {
@@ -86,7 +87,7 @@ public class Game {
         lines.add(line2);
         Conversation conversation = new Conversation(lines);
         this.currentConversation = conversation;
-        this.loadedConverations.add(conversation);
+        this.loadedConversations.add(conversation);
     }
 
     public Scene getCurrentScene() {

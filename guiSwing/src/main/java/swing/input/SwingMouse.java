@@ -26,30 +26,44 @@ public class SwingMouse implements Mouse {
         this.buttonsPressed = new ArrayList<>();
         this.listenerList = new ArrayList<>();
         this.window.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
 
             @Override
             public void mouseMoved(MouseEvent e) {
 
-                updatePosition(e);
-                updateListeners();
+                SwingMouse.this.updatePosition(e);
             }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+
+                SwingMouse.this.updatePosition(e);
+            }
+
         });
         this.window.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+                SwingMouse.this.updatePosition(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+                SwingMouse.this.updatePosition(-1, -1);
+            }
+
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    buttonsPressed.add(MouseButton.LEFT);
-                } else if (e.getButton() == MouseEvent.BUTTON2) {
-                    buttonsPressed.add(MouseButton.RIGHT);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    buttonsPressed.add(MouseButton.MIDDLE);
-                }
-                updateListeners();
+                SwingMouse.this.updateButtons(e, true);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+                SwingMouse.this.updateButtons(e, false);
             }
 
             @Override
@@ -57,40 +71,9 @@ public class SwingMouse implements Mouse {
 
             }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    buttonsPressed.remove(MouseButton.LEFT);
-                } else if (e.getButton() == MouseEvent.BUTTON2) {
-                    buttonsPressed.remove(MouseButton.RIGHT);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    buttonsPressed.remove(MouseButton.MIDDLE);
-                }
-                updateListeners();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-                updatePosition(e);
-                updateListeners();
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                posX = -1;
-                posY = -1;
-            }
         });
     }
 
-    private void updateListeners() {
-        game.input.MouseEvent event = new game.input.MouseEvent(new Vector(posX, posY), this.buttonsPressed);
-        for (game.input.MouseListener listener : listenerList) {
-            listener.update(event);
-        }
-    }
 
     @Override
     public void addListener(game.input.MouseListener listener) {
@@ -102,15 +85,60 @@ public class SwingMouse implements Mouse {
         this.listenerList.remove(listener);
     }
 
-    private void updatePosition(MouseEvent e) {
-
-        posX = e.getX();
-        posY = e.getY();
-//        System.out.println("mouse = "+ posX +" : "+ posY);
-    }
-
     @Override
     public Vector getPosition() {
         return new Vector(posX, posY);
     }
+
+    private void updateButtons(MouseEvent e, boolean shouldAdd) {
+
+        List<MouseButton> relevantButtons = SwingMouse.this.getRelevantButtons(e);
+        for (MouseButton mouseButton : relevantButtons) {
+            if (!SwingMouse.this.buttonsPressed.contains(mouseButton)) {
+                if (shouldAdd) {
+                    SwingMouse.this.buttonsPressed.add(mouseButton);
+                }
+
+            } else {
+                if (!shouldAdd) {
+                    SwingMouse.this.buttonsPressed.remove(mouseButton);
+                }
+            }
+        }
+        this.updateListeners();
+    }
+
+    private List<MouseButton> getRelevantButtons(MouseEvent e) {
+
+        List<MouseButton> relevantButtons = new ArrayList<>();
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            relevantButtons.add(MouseButton.LEFT);
+        } else if (e.getButton() == MouseEvent.BUTTON2) {
+            relevantButtons.add(MouseButton.RIGHT);
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            relevantButtons.add(MouseButton.MIDDLE);
+        }
+        return relevantButtons;
+    }
+
+    private void updatePosition(MouseEvent e) {
+
+        this.updatePosition(e.getX(), e.getY());
+    }
+
+    private void updatePosition(int x, int y) {
+
+        this.posX = x;
+        this.posY = y;
+//        System.out.println("mouse = "+ posX +" : "+ posY);
+        this.updateListeners();
+    }
+
+    private void updateListeners() {
+        game.input.MouseEvent event = new game.input.MouseEvent(new Vector(posX, posY), this.buttonsPressed);
+        for (game.input.MouseListener listener : listenerList) {
+            listener.update(event);
+        }
+    }
+
 }
