@@ -18,17 +18,6 @@ public class ImageContainer {
 
     }
 
-    public Image loadImage(String key, String filePath, int width, int height) {
-        Image image;
-        if (this.imageDictionary.get(key) != null) {
-            image = this.imageDictionary.get(key);
-        } else {
-            image = this.loadImageFromPath(filePath, width, height);
-            this.imageDictionary.put(key, image);
-        }
-        return image;
-    }
-
     public Image loadImage(String key, String filePath) {
         Image image;
         if (this.imageDictionary.get(key) != null) {
@@ -49,19 +38,6 @@ public class ImageContainer {
             newLoadedImages.put(key, image);
         }
         return newLoadedImages;
-    }
-
-    private Image loadImageFromPath(String filePath, int width, int height) {
-        try {
-            return new Image(this.rootPath + filePath, width, height);
-        } catch (IOException ioe) {
-            try {
-                return new Image(this.rootPath2 + filePath, width, height);
-            } catch (IOException ioe2) {
-                ioe2.printStackTrace();
-                return new Image(1, 1);
-            }
-        }
     }
 
     private Image loadImageFromPath(String filePath) {

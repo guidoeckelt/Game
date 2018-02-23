@@ -33,4 +33,5 @@ public class Scene {
     public List<GameObject> getGameObjects() {
         return Collections.unmodifiableList(this.gameObjects);
     }
+
 }

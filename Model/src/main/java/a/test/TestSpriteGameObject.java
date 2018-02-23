@@ -24,7 +24,7 @@ public class TestSpriteGameObject extends GameObject {
         for (int i = 1; i <= 8; i++) {
             String key = "Dog-Eating-" + i;
             String path = "Undertale\\AnnoyingDog\\eat-" + i + ".png";
-            images.add(imageContainer.loadImage(key, path, ((int) this.size.getWidth()), ((int) this.size.getHeight())));
+            images.add(imageContainer.loadImage(key, path));
         }
         this.graphics.add(new SpriteGraphic(this, images, 200));
 

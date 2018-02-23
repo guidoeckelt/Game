@@ -17,4 +17,6 @@ public interface GraphicContext {
 
     void drawRect(Vector position, Dimension size, String fillColor, String borderColor);
 
+    Image show();
+
 }

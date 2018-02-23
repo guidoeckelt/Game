@@ -32,7 +32,7 @@ public class Pixel {
         return alpha << 24 + red << 16 + green << 8 + blue;
     }
 
-    public int getInt_argb() {
+    public int getInt_ARGB() {
         return int_argb;
     }
 

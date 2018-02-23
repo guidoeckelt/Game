@@ -34,11 +34,4 @@ public class FxCanvas implements Canvas {
         this.context.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     }
 
-    @Override
-    public void finalizeDrawing() {
-
-//        javafx.scene.image.Image imageFx = new MemoryImageConverter(image).intoFx();
-//        System.out.println(imageFx);
-//        this.context.drawImage(imageFx, 0, 0);
-    }
 }

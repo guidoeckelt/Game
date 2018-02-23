@@ -28,6 +28,9 @@ public class SpriteGraphic implements Graphic {
     public void draw(DrawParameters drawParameters) {
 
         Image image = this.imageList.get(this.currentImageIndex);
+        if (drawParameters.isHovered(this.gameObject)) {
+            ImageGraphic.drawImageHoverBorder(drawParameters.getContext(), image, this.gameObject.getPosition(), this.gameObject.getSize());
+        }
         drawParameters.getContext().drawImage(image, this.gameObject.getPosition(), this.gameObject.getSize());
         this.checkForNextImage();
     }

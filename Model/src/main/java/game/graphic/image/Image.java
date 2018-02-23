@@ -22,29 +22,34 @@ public class Image {
 
     private int width;
     private int height;
-    private File file;
-    private BufferedImage image;
     private Pixel[][] pixels;
+    private File file;
+    private BufferedImage awtImage;
 
     public Image(int width, int height) {
+
         this.width = width;
         this.height = height;
         this.pixels = new Pixel[height][width];
     }
 
-    public Image(String filePath) throws IOException {
+    public Image(BufferedImage image) {
 
-        this(filePath, -1, -1);
+        this.readPixelsFromBufferedImage(image);
     }
 
-    public Image(String filePath, int width, int height) throws IOException {
+    public Image(String filePath) throws IOException {
+
+        this.getFromFile(filePath);
+    }
+
+    private void getFromFile(String filePath) throws IOException {
 
         this.file = new File(filePath);
-        this.width = width;
-        this.height = height;
 //        byte[] allBytes = this.readBytesFromFile();
 //        this.pixels = this.decodeBytes(allBytes);
-        this.readPixels();
+        this.awtImage = ImageIO.read(this.file);
+        this.readPixelsFromBufferedImage(this.awtImage);
     }
 
     private byte[] readBytesFromFile() throws IOException {
@@ -69,28 +74,23 @@ public class Image {
         return pixels;
     }
 
-    private void readPixels() throws IOException {
-        BufferedImage rawImage = ImageIO.read(this.file);
-        if (this.width < 1 || this.height < 1) {
-            this.image = rawImage;
-            this.width = this.image.getWidth();
-            this.height = this.image.getHeight();
-        } else {
-            this.image = this.scale(rawImage, this.width, this.height);
-        }
-        pixels = new Pixel[this.height][this.width];
+    private void readPixelsFromBufferedImage(BufferedImage image) {
+
+        this.width = image.getWidth();
+        this.height = image.getHeight();
+        this.pixels = new Pixel[this.height][this.width];
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < this.width; x++) {
                 int pixelNumber = x + (y * this.width);
                 int color = image.getRGB(x, y);
-                Pixel pixel = new Pixel(color);
-                this.pixels[y][x] = pixel;
+                this.pixels[y][x] = new Pixel(color);
 //                    System.out.println(pixel.getRed()+";"+pixel.getGreen()+";"+pixel.getBlue()+";"+pixel.getAlpha());
             }
         }
     }
 
     public void capture(Image other, int startX, int startY) {
+
         this.capture(other, startX, startY, other.getWidth(), other.getHeight());
     }
 
@@ -113,7 +113,8 @@ public class Image {
         }
     }
 
-    protected BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+    public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {
+
         BufferedImage scaledImage = null;
         if (imageToScale != null) {
             scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());

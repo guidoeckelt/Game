@@ -31,4 +31,8 @@ public class Camera {
         }
         return false;
     }
+
+    public Dimension getViewport() {
+        return viewport;
+    }
 }

@@ -28,7 +28,6 @@ public abstract class GameObject implements game.graphic.Drawable {
         this.size = size;
         this.movementPattern = new NoMovement();
         this.graphics = new ArrayList<>();
-
     }
 
     @Override

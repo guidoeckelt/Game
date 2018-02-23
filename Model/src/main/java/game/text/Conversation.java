@@ -1,6 +1,7 @@
 package game.text;
 
 import game.graphic.Graphic;
+import game.graphic.LineGraphic;
 
 import java.util.List;
 

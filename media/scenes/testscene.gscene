@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Scene>
 
-    <Size width="2000" height="1000"/>
+    <Size width="1920" height="1080"/>
 
     <GameObject key="Pointy">
         <Parameter>

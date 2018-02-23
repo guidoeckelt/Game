@@ -2,13 +2,12 @@ package game;
 
 import game.filesystem.GameObjectFactoryDictionaryReader;
 import game.filesystem.SceneReader;
-import game.gameobject.GameObject;
 import game.gameobject.GameObjectFactory;
 import game.graphic.Graphic;
 import game.graphic.image.ImageContainer;
 import game.input.KeyBoard;
+import game.input.KeyBoardButton;
 import game.input.Mouse;
-import game.input.MouseEvent;
 import game.media.Speaker;
 import game.text.Conversation;
 import game.text.Line;
@@ -32,8 +31,10 @@ public class Game {
     private Hashtable<String, GameObjectFactory> gameObjectFactoryDictionary;
     private List<Scene> loadedScenes;
     private Scene currentScene;
+    private HoverListener hoverListener;
     private List<Conversation> loadedConversations;
     private Conversation currentConversation;
+    private List<Graphic> ui;
 
     public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
 
@@ -44,13 +45,20 @@ public class Game {
         this.gameLoop = new GameLoop(this);
         this.gameObjectFactoryDictionary = new GameObjectFactoryDictionaryReader(this.rootPath).read();
         this.loadedScenes = new ArrayList<>();
+        this.hoverListener = new HoverListener(this);
         this.loadedConversations = new ArrayList<>();
+        this.ui = new ArrayList<>();
     }
 
     public void start() {
 
-        this.mouse.addListener(this::mouseMove);
         this.openScene("testscene");
+        this.mouse.addListener(this.hoverListener);
+        this.keyBoard.addListener(kbe -> {
+            if (kbe.getReleasedButton().equals(KeyBoardButton.ESCAPE)) {
+                this.toggle();
+            }
+        });
         this.gameLoop.start();
         this.playConversation();
 
@@ -63,11 +71,6 @@ public class Game {
         } else {
             this.gameLoop.unpause();
         }
-    }
-
-    public void mouseMove(MouseEvent event) {
-
-//        System.out.println(event.getPosition());
     }
 
     private void openScene(String name) {
@@ -104,17 +107,11 @@ public class Game {
 
     public GameStatus getStatus() {
 
-        List<Graphic> graphics = new ArrayList<>();
-        if (this.currentConversation != null) {
-            graphics.add(this.currentConversation.getGraphic());
+        if (this.gameLoop.isRunning()) {
+            return new GameStatus(this.currentScene, this.currentConversation, this.hoverListener.getHoveredGameObject());
+        } else {
+            return new GameStatus(GameMode.PAUSE, this.ui);
         }
-        if (this.currentScene != null) {
-            List<GameObject> allGameObjects = this.currentScene.getGameObjects();
-            for (GameObject gameObject : allGameObjects) {
-                graphics.add(gameObject.currentGraphic());
-            }
-        }
-        return new GameStatus(graphics);
     }
 
 }

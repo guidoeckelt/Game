@@ -46,7 +46,8 @@ public class GameLoop {
     private void startTimer() {
 
         this.isRunning = true;
-        timer.scheduleAtFixedRate(this.task, 0, delay);
+        this.timer = new Timer(true);
+        this.timer.scheduleAtFixedRate(this.task, 0, delay);
     }
 
     private void createTask() {

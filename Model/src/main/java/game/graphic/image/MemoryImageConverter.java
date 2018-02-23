@@ -20,7 +20,7 @@ public class MemoryImageConverter {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Pixel pixel = image.getPixel(x, y);
-                pixels[index] = pixel.getInt_argb();
+                pixels[index] = pixel.getInt_ARGB();
                 index++;
             }
         }

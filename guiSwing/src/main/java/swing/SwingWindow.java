@@ -5,20 +5,18 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Window extends JFrame {
+public class SwingWindow extends JFrame {
 
     private JLayeredPane mainNode;
     private JPanel ui;
 
-    public Window(Dimension size) {
+    public SwingWindow(Dimension size) {
 
         this.setTitle("PointyAndClicky");
         this.setSize(size.width, size.height);
         this.setUndecorated(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setIgnoreRepaint(true);
-        this.setVisible(true);
-        this.createBufferStrategy(2);
         BufferedImage blankCursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
         Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                 blankCursorImg, new Point(0, 0), "blank cursor");

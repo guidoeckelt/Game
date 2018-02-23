@@ -1,10 +1,9 @@
-package game.text;
+package game.graphic;
 
 
-import game.graphic.DrawParameters;
-import game.graphic.Graphic;
 import game.metric.Dimension;
 import game.metric.Vector;
+import game.text.Line;
 
 import java.awt.*;
 
@@ -13,7 +12,7 @@ public class LineGraphic implements Graphic {
 
     private final Dimension lineMaxSize;
     private final Vector lineStart;
-    private final int nameMaxWidth;
+    private final int contentOffsetX;
     private final String defaultColor;
     private final Font defaultNameFont;
     private final Font defaultContentFont;
@@ -24,7 +23,7 @@ public class LineGraphic implements Graphic {
         this.line = line;
         this.lineMaxSize = new Dimension(1500, 200);
         this.lineStart = new Vector(210, 780);
-        this.nameMaxWidth = 300;
+        this.contentOffsetX = 300;
         this.defaultColor = "#FFFFFF";
         this.defaultNameFont = new Font("Arial", Font.BOLD, 50);
         this.defaultContentFont = new Font("Arial", Font.BOLD, 40);
@@ -40,7 +39,7 @@ public class LineGraphic implements Graphic {
         drawParameters.getContext().drawText(name + " :", namePosition, this.defaultNameFont, this.defaultColor, 3);
 
         String nextLineContent = this.line.getNextLineContent();
-        Vector contentPosition = new Vector(this.lineStart.getX() + this.nameMaxWidth, this.lineStart.getY());
+        Vector contentPosition = new Vector(this.lineStart.getX() + this.contentOffsetX, this.lineStart.getY());
         drawParameters.getContext().drawText(nextLineContent, contentPosition, this.defaultContentFont, this.defaultColor, 2);
     }
 
