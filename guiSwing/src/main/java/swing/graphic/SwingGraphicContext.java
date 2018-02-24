@@ -23,8 +23,7 @@ public class SwingGraphicContext implements GraphicContext {
         this.buffer = buffer;
         this.camera = camera;
         this.image = new BufferedImage(
-                (int) camera.getViewport().getWidth()
-                , (int) camera.getViewport().getHeight()
+                (int) camera.getViewport().getWidth(), (int) camera.getViewport().getHeight()
                 , BufferedImage.TYPE_INT_ARGB);
     }
 
@@ -90,9 +89,8 @@ public class SwingGraphicContext implements GraphicContext {
         Graphics g = this.buffer.getDrawGraphics();
         g.drawImage(this.image, 0, 0, null);
         buffer.show();
-        Image image = new Image(this.image);
         this.dispose(g);
-        return image;
+        return new Image(this.image);
     }
 
     private Graphics2D getDrawGraphics() {
@@ -110,7 +108,9 @@ public class SwingGraphicContext implements GraphicContext {
         if (color.substring(1).length() <= 6) {
             g.setColor(Color.decode(color));
         } else {
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+            String alpha = color.substring(0, 3);
+            float alphaF = (float) Integer.decode(alpha) / 255f;
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaF));
             String colorWithoutAlpha = color.charAt(0) + color.substring(3);
             g.setColor(Color.decode(colorWithoutAlpha));
         }

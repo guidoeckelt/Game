@@ -28,10 +28,4 @@ public class FxCanvas implements Canvas {
         return new FxGraphicContext(this.context);
     }
 
-    @Override
-    public void clear() {
-
-        this.context.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-    }
-
 }

@@ -9,24 +9,24 @@ import java.util.List;
 
 public class GameStatus {
 
-    private final GameMode mode;
+    private final GameStatusType type;
     private GameObject hoveredGameObject;
     private List<Graphic> graphics;
     private Scene activeScene;
     private Conversation activeConversation;
 
-    public GameStatus(GameMode mode, List<Graphic> graphics) {
-        this.mode = mode;
+    public GameStatus(GameStatusType type, List<Graphic> graphics) {
+        this.type = type;
         this.graphics = graphics;
     }
 
-    public GameStatus(Scene scene, Conversation conversation, GameObject hoveredGameObject) {
+    public GameStatus(Scene scene, GameObject hoveredGameObject, Conversation conversation) {
         this.graphics = new ArrayList<>();
         this.activeScene = scene;
         this.activeConversation = conversation;
         this.hoveredGameObject = hoveredGameObject;
         this.getFromRunningGame();
-        this.mode = GameMode.RUNNING;
+        this.type = GameStatusType.RUNNING;
     }
 
     private void getFromRunningGame() {
@@ -50,8 +50,8 @@ public class GameStatus {
         return hoveredGameObject;
     }
 
-    public GameMode getMode() {
-        return this.mode;
+    public GameStatusType getType() {
+        return this.type;
     }
 
 }

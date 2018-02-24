@@ -35,6 +35,7 @@ public class Game {
     private List<Conversation> loadedConversations;
     private Conversation currentConversation;
     private List<Graphic> ui;
+    private boolean isLoading = true;
 
     public Game(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
 
@@ -59,13 +60,15 @@ public class Game {
                 this.toggle();
             }
         });
-        this.gameLoop.start();
-        this.playConversation();
-
+        Game.this.isLoading = false;
+        Game.this.gameLoop.start();
+//        this.playConversation();
     }
 
     public void toggle() {
-
+        if (isLoading) {
+            return;
+        }
         if (this.gameLoop.isRunning()) {
             this.gameLoop.pause();
         } else {
@@ -97,20 +100,18 @@ public class Game {
         return currentScene;
     }
 
-    public Mouse getMouse() {
-        return mouse;
-    }
-
     public ImageContainer getImageContainer() {
         return imageContainer;
     }
 
-    public GameStatus getStatus() {
-
+    public GameStatus currentStatus() {
+        if (this.isLoading) {
+            return new GameStatus(GameStatusType.LOADING, this.ui);
+        }
         if (this.gameLoop.isRunning()) {
-            return new GameStatus(this.currentScene, this.currentConversation, this.hoverListener.getHoveredGameObject());
+            return new GameStatus(this.currentScene, this.hoverListener.getHoveredGameObject(), this.currentConversation);
         } else {
-            return new GameStatus(GameMode.PAUSE, this.ui);
+            return new GameStatus(GameStatusType.PAUSE, this.ui);
         }
     }
 
