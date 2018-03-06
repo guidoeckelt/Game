@@ -4,21 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.charaktar</groupId>
-    <artifactId>PointyAndClicky</artifactId>
-    <packaging>pom</packaging>
-    <version>0.0.5</version>
+    <parent>
+        <artifactId>PointyAndClicky</artifactId>
+        <groupId>de.charaktar</groupId>
+        <version>0.0.5</version>
+    </parent>
 
-    <modules>
-        <module>GE</module>
-        <module>Game</module>
-        <module>GUI</module>
-        <module>guiOpenGL</module>
-    </modules>
+    <packaging>jar</packaging>
 
+    <artifactId>GE</artifactId>
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
 
     <build>
         <plugins>
