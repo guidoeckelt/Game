@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GameObjects>
 
-    <GameObject key="Pointy" classPath="de.charaktar.pointyandclicky.pointy.Pointy">
+    <GameObject key="Pointy" classPath="de.charaktar.pointyandclicky.gameobject.pointy.Pointy">
         <Parameter>
-            <Vector classPath="de.charaktar.game.metric"/>
+            <Vector classPath="de.charaktar.ge.metric"/>
         </Parameter>
     </GameObject>
 
-    <GameObject key="Clicky" classPath="de.charaktar.pointyandclicky.clicky.Clicky">
+    <GameObject key="Clicky" classPath="de.charaktar.pointyandclicky.gameobject.clicky.Clicky">
         <Parameter>
-            <Vector classPath="de.charaktar.game.metric"/>
+            <Vector classPath="de.charaktar.ge.metric"/>
         </Parameter>
     </GameObject>
 

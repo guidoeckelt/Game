@@ -1,10 +1,10 @@
 package de.charaktar.pointyandclicky;
 
-import de.charaktar.game.Game;
-import de.charaktar.game.GameStatus;
-import de.charaktar.game.gameobject.GameObject;
-import de.charaktar.game.input.MouseEvent;
-import de.charaktar.game.input.MouseListener;
+import de.charaktar.ge.Game;
+import de.charaktar.ge.GameStatus;
+import de.charaktar.ge.gameobject.GameObject;
+import de.charaktar.ge.input.MouseEvent;
+import de.charaktar.ge.input.MouseListener;
 
 public class HoverListener implements MouseListener {
 
@@ -29,9 +29,6 @@ public class HoverListener implements MouseListener {
                 break;
             }
         }
-//        if(this.hoveredGameObject != null){
-//            System.out.println(this.hoveredGameObject.getName());
-//        }
     }
 
     public GameObject getHoveredGameObject() {

@@ -1,8 +1,8 @@
 package a.test.square;
 
-import de.charaktar.game.graphic.DrawParameters;
-import de.charaktar.game.graphic.Graphic;
-import de.charaktar.game.metric.Vector;
+import de.charaktar.ge.graphic.DrawParameters;
+import de.charaktar.ge.graphic.Graphic;
+import de.charaktar.ge.metric.Vector;
 import javafx.scene.paint.Color;
 
 public class SquareGraphic implements Graphic {

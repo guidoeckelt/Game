@@ -10,13 +10,12 @@
         <version>0.0.5</version>
     </parent>
 
+    <artifactId>GE</artifactId>
     <packaging>jar</packaging>
 
-    <artifactId>GE</artifactId>
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
 
     <build>
         <plugins>

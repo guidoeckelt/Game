@@ -1,10 +1,10 @@
 package de.charaktar.pointyandclicky;
 
-import de.charaktar.game.Game;
-import de.charaktar.game.View;
-import de.charaktar.game.input.KeyBoard;
-import de.charaktar.game.input.Mouse;
-import de.charaktar.game.media.Speaker;
+import de.charaktar.ge.Game;
+import de.charaktar.ge.View;
+import de.charaktar.ge.input.KeyBoard;
+import de.charaktar.ge.input.Mouse;
+import de.charaktar.ge.media.Speaker;
 import de.charaktar.swing.SwingCanvas;
 import de.charaktar.swing.input.SwingKeyBoard;
 import de.charaktar.swing.input.SwingMouse;

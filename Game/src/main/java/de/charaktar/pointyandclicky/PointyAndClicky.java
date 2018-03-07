@@ -1,16 +1,16 @@
 package de.charaktar.pointyandclicky;
 
-import de.charaktar.game.Game;
-import de.charaktar.game.GameStatus;
-import de.charaktar.game.GameStatusType;
-import de.charaktar.game.Scene;
-import de.charaktar.game.filesystem.SceneReader;
-import de.charaktar.game.input.KeyBoard;
-import de.charaktar.game.input.KeyBoardButton;
-import de.charaktar.game.input.Mouse;
-import de.charaktar.game.media.Speaker;
-import de.charaktar.game.text.Conversation;
-import de.charaktar.game.text.Line;
+import de.charaktar.ge.Game;
+import de.charaktar.ge.GameStatus;
+import de.charaktar.ge.GameStatusType;
+import de.charaktar.ge.Scene;
+import de.charaktar.ge.filesystem.SceneReader;
+import de.charaktar.ge.input.KeyBoard;
+import de.charaktar.ge.input.KeyBoardButton;
+import de.charaktar.ge.input.Mouse;
+import de.charaktar.ge.media.Speaker;
+import de.charaktar.ge.text.Conversation;
+import de.charaktar.ge.text.Line;
 
 import java.util.ArrayList;
 import java.util.List;

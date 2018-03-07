@@ -1,11 +1,11 @@
 package a.test;
 
-import de.charaktar.game.gameobject.GameObject;
-import de.charaktar.game.graphic.SpriteGraphic;
-import de.charaktar.game.graphic.image.Image;
-import de.charaktar.game.graphic.image.ImageContainer;
-import de.charaktar.game.metric.Dimension;
-import de.charaktar.game.metric.Vector;
+import de.charaktar.ge.gameobject.GameObject;
+import de.charaktar.ge.graphic.SpriteGraphic;
+import de.charaktar.ge.graphic.image.Image;
+import de.charaktar.ge.graphic.image.ImageContainer;
+import de.charaktar.ge.metric.Dimension;
+import de.charaktar.ge.metric.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

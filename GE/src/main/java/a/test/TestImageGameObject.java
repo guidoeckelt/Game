@@ -1,12 +1,12 @@
 package a.test;
 
-import de.charaktar.game.gameobject.GameObject;
-import de.charaktar.game.graphic.Graphic;
-import de.charaktar.game.graphic.ImageGraphic;
-import de.charaktar.game.graphic.image.Image;
-import de.charaktar.game.graphic.image.ImageContainer;
-import de.charaktar.game.metric.Dimension;
-import de.charaktar.game.metric.Vector;
+import de.charaktar.ge.gameobject.GameObject;
+import de.charaktar.ge.graphic.Graphic;
+import de.charaktar.ge.graphic.ImageGraphic;
+import de.charaktar.ge.graphic.image.Image;
+import de.charaktar.ge.graphic.image.ImageContainer;
+import de.charaktar.ge.metric.Dimension;
+import de.charaktar.ge.metric.Vector;
 
 public class TestImageGameObject extends GameObject {
 

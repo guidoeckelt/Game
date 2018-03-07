@@ -1,9 +1,9 @@
 package a.test.square;
 
-import de.charaktar.game.gameobject.GameObject;
-import de.charaktar.game.metric.Vector;
-import de.charaktar.game.movement.MovementParameter;
-import de.charaktar.game.movement.MovementPattern;
+import de.charaktar.ge.gameobject.GameObject;
+import de.charaktar.ge.metric.Vector;
+import de.charaktar.ge.movement.MovementParameter;
+import de.charaktar.ge.movement.MovementPattern;
 
 public class SquareMovePattern extends MovementPattern {
 
