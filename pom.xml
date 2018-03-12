@@ -11,10 +11,8 @@
 
     <modules>
         <module>GE</module>
-        <module>Swing</module>
-        <module>JavaFX</module>
-        <module>OpenGL</module>
         <module>Game</module>
+        <module>OpenGL</module>
     </modules>
 
     <properties>

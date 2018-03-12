@@ -5,12 +5,14 @@ import de.charaktar.ge.GameStatus;
 import de.charaktar.ge.GameStatusType;
 import de.charaktar.ge.Scene;
 import de.charaktar.ge.filesystem.SceneReader;
-import de.charaktar.ge.input.KeyBoard;
-import de.charaktar.ge.input.KeyBoardButton;
-import de.charaktar.ge.input.Mouse;
-import de.charaktar.ge.media.Speaker;
-import de.charaktar.ge.text.Conversation;
+import de.charaktar.ge.graphic.Button;
+import de.charaktar.ge.inputoutput.InputOutputDevices;
+import de.charaktar.ge.inputoutput.KeyBoardButton;
+import de.charaktar.ge.metric.Dimension;
+import de.charaktar.ge.metric.Vector;
+import de.charaktar.ge.text.Dialog;
 import de.charaktar.ge.text.Line;
+import de.charaktar.pointyandclicky.inputoutput.HoverListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +22,12 @@ public class PointyAndClicky extends Game {
     private List<Scene> loadedScenes;
     private Scene currentScene;
     private HoverListener hoverListener;
-    private List<Conversation> loadedConversations;
-    private Conversation currentConversation;
+    private List<Dialog> loadedConversations;
+    private Dialog currentConversation;
 
-    public PointyAndClicky(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
+    public PointyAndClicky(InputOutputDevices io) {
 
-        super(mouse, keyBoard, speaker);
+        super(io);
         this.loadedScenes = new ArrayList<>();
         this.hoverListener = new HoverListener(this);
         this.loadedConversations = new ArrayList<>();
@@ -34,14 +36,22 @@ public class PointyAndClicky extends Game {
     @Override
     protected void OnStartUp() {
 
+        this.ui = new ArrayList<>();
+        Button button = new Button("Button", new Vector(700, 250), new Dimension(520, 100));
+        this.ui.add(button);
         this.openScene("testscene");
-        this.mouse.addListener(this.hoverListener);
-        this.keyBoard.addListener(kbe -> {
+        this.io.getMouse().addListener(this.hoverListener);
+        this.io.getKeyBoard().addListener(kbe -> {
             if (kbe.getReleasedButton().equals(KeyBoardButton.ESCAPE)) {
                 this.toggle();
             }
         });
         this.playConversation();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -72,7 +82,7 @@ public class PointyAndClicky extends Game {
         lines.add(line);
         Line line2 = new Line(currentScene.getGameObjects().get(1), "And I am Clicky. We are best buddys since i can think of");
         lines.add(line2);
-        Conversation conversation = new Conversation(lines);
+        Dialog conversation = new Dialog(lines);
         this.currentConversation = conversation;
         this.loadedConversations.add(conversation);
     }

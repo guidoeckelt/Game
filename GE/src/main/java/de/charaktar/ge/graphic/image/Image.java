@@ -12,7 +12,6 @@ import java.nio.file.Files;
 
 public class Image {
 
-
     public static void main(String[] args) {
         String filePath = "D:\\DevGame\\PointyAndClicky\\media\\sprites\\pointy\\Front_Smile_32x32.png";
         try {
@@ -81,25 +80,6 @@ public class Image {
         this.width = width;
         this.height = height;
     }
-
-    //    public void capture(Image other, int x, int y) {
-//        if (this.awtImage != null) {
-//            Graphics2D g = this.awtImage.createGraphics();
-//            g.drawImage(other.getAwt(), x, y, null);
-//        }else {
-//
-//        }
-//    }
-//
-//    public void capture(Image other, int startX, int startY, int width, int height) {
-//
-//        if (this.awtImage != null) {
-//            Graphics2D g = this.awtImage.createGraphics();
-//            g.drawImage(other.getAwt(), startX, startY, width, height, null);
-//        }else {
-//
-//        }
-//    }
 
     //====Public
     public static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) {

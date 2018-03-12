@@ -1,7 +1,6 @@
 package de.charaktar.ge.graphic;
 
 import de.charaktar.ge.gameobject.GameObject;
-import de.charaktar.ge.graphic.image.MemoryImageConverter;
 import de.charaktar.ge.graphic.image.Pixel;
 import de.charaktar.ge.metric.Dimension;
 import de.charaktar.ge.metric.Vector;
@@ -36,7 +35,7 @@ public class ImageGraphic implements Graphic {
 
     public static void drawImageHoverBorder(GraphicContext context, de.charaktar.ge.graphic.image.Image image, Vector position, Dimension size) {
 
-        java.awt.Image source = new MemoryImageConverter(image).intoAwt();
+        java.awt.Image source = image.getAwt();
         ImageProducer prod = new FilteredImageSource(source.getSource(), new RGBImageFilter() {
             @Override
             public int filterRGB(int x, int y, int rgb) {

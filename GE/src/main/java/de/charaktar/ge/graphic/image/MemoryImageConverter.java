@@ -2,21 +2,12 @@ package de.charaktar.ge.graphic.image;
 
 import javafx.scene.image.WritableImage;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.MemoryImageSource;
 
 public class MemoryImageConverter {
 
-
     private BufferedImage awtImage;
     private WritableImage fxImage;
-    private Image image;
-
-    public MemoryImageConverter(Image image) {
-
-        this.image = image;
-    }
 
     public MemoryImageConverter(BufferedImage image) {
 
@@ -29,19 +20,17 @@ public class MemoryImageConverter {
     }
 
     public java.awt.Image intoAwt() {
-        Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
-        int width = this.image.getWidth();
-        int height = this.image.getHeight();
-        int pixels[] = new int[width * height];
-        int index = 0;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Pixel pixel = image.getPixel(x, y);
-                pixels[index] = pixel.getInt_ARGB();
-                index++;
+
+        if (this.awtImage != null) {
+            return this.awtImage;
+        }
+        this.awtImage = new BufferedImage((int) this.fxImage.getWidth(), (int) this.fxImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < this.awtImage.getHeight(); y++) {
+            for (int x = 0; x < this.awtImage.getWidth(); x++) {
+                this.awtImage.setRGB(x, y, this.fxImage.getPixelReader().getArgb(x, y));
             }
         }
-        return defaultToolkit.createImage(new MemoryImageSource(width, height, pixels, 0, width));
+        return this.awtImage;
     }
 
     public javafx.scene.image.Image intoFx() {
@@ -57,4 +46,5 @@ public class MemoryImageConverter {
         }
         return this.fxImage;
     }
+
 }

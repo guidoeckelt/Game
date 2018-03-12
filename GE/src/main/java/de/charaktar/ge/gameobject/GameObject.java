@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Guido on 05.05.2016.
  */
-public abstract class GameObject implements Drawable {
+public class GameObject implements Drawable {
 
     protected Vector position;
     protected Dimension size;

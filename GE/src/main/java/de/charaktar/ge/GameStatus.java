@@ -2,7 +2,7 @@ package de.charaktar.ge;
 
 import de.charaktar.ge.gameobject.GameObject;
 import de.charaktar.ge.graphic.Graphic;
-import de.charaktar.ge.text.Conversation;
+import de.charaktar.ge.text.Dialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,58 +12,59 @@ public class GameStatus {
 
     private final GameStatusType type;
     private List<GameObject> gameObjects;
-    private List<Graphic> graphics;
+    private List<Graphic> ui;
     private GameObject hoveredGameObject;
     private Scene activeScene;
-    private Conversation activeConversation;
+    private Dialog activeConversation;
 
-    public GameStatus(GameStatusType type, List<GameObject> gameObjects, List<Graphic> graphics) {
+    public GameStatus(GameStatusType type, List<GameObject> gameObjects, List<Graphic> ui) {
 
         this.type = type;
         this.gameObjects = gameObjects;
-        this.graphics = graphics;
+        this.ui = ui;
     }
 
-    public GameStatus(Scene scene, GameObject hoveredGameObject, Conversation conversation) {
+    public GameStatus(Scene scene, GameObject hoveredGameObject, Dialog conversation) {
 
-        this.graphics = new ArrayList<>();
+        this.type = GameStatusType.RUNNING;
+        this.ui = new ArrayList<>();
         this.activeScene = scene;
         this.activeConversation = conversation;
         this.hoveredGameObject = hoveredGameObject;
-        this.getFromRunningGame();
-        this.type = GameStatusType.RUNNING;
     }
 
-    private void getFromRunningGame() {
-
-        if (this.activeConversation != null) {
-            this.graphics.add(this.activeConversation.getGraphic());
-        }
-        if (this.activeScene != null) {
-            List<GameObject> allGameObjects = this.activeScene.getGameObjects();
-            for (GameObject gameObject : allGameObjects) {
-                this.graphics.add(gameObject.currentGraphic());
-            }
-        }
-    }
-
-    public List<Graphic> getGraphics() {
-        return Collections.unmodifiableList(this.graphics);
+    public GameStatusType getType() {
+        return this.type;
     }
 
     public List<GameObject> getGameObjects() {
         if (this.activeScene == null) {
-            return Collections.emptyList();
+            return Collections.unmodifiableList(this.gameObjects);
         }
         return Collections.unmodifiableList(this.activeScene.getGameObjects());
+    }
+
+    public List<Graphic> getGraphics() {
+        List<Graphic> graphics = new ArrayList<>();
+        if (this.activeConversation != null) {
+            graphics.add(this.activeConversation.getGraphic());
+        }
+        if (this.activeScene != null) {
+            List<GameObject> allGameObjects = this.activeScene.getGameObjects();
+            for (GameObject gameObject : allGameObjects) {
+                graphics.add(gameObject.currentGraphic());
+            }
+        }
+        return graphics;
+    }
+
+    public List<Graphic> getUi() {
+        return ui;
     }
 
     public GameObject getHoveredGameObject() {
         return hoveredGameObject;
     }
 
-    public GameStatusType getType() {
-        return this.type;
-    }
 
 }
