@@ -1,4 +1,4 @@
-package de.charaktar.ge.text;
+package de.charaktar.ge.graphic.text;
 
 import de.charaktar.ge.gameobject.GameObject;
 
@@ -30,7 +30,7 @@ public class Line {
             end = contextLength;
         }
         String nextText = this.content.substring(this.index, end);
-//        this.index += end;
+//        this.index += get;
         if (this.index == contextLength) {
             this.isFinished = true;
         }

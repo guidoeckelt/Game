@@ -1,4 +1,4 @@
-package de.charaktar.ge.text;
+package de.charaktar.ge.graphic.text;
 
 import de.charaktar.ge.graphic.Graphic;
 import de.charaktar.ge.graphic.LineGraphic;

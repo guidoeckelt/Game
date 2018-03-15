@@ -17,7 +17,12 @@ public class HoverListener implements MouseListener {
     }
 
     @Override
-    public void update(MouseEvent event) {
+    public void onAction(MouseEvent event) {
+
+    }
+
+    @Override
+    public void onMove(MouseEvent event) {
 
         if (this.hoveredGameObject != null && !this.isMouseOver(event, this.hoveredGameObject)) {
             this.hoveredGameObject = null;

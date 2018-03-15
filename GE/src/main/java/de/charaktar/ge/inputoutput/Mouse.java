@@ -8,5 +8,14 @@ public interface Mouse {
 
     void addListener(MouseListener listener);
 
+    void addMotionListener(MouseMotionListener listener);
+
+    void addButtonListener(MouseButtonListener listener);
+
     void removeListener(MouseListener listener);
+
+    void removeMotionListener(MouseMotionListener listener);
+
+    void removeButtonListener(MouseButtonListener listener);
+
 }

@@ -2,7 +2,7 @@ package de.charaktar.ge.swing;
 
 import de.charaktar.ge.Camera;
 import de.charaktar.ge.Canvas;
-import de.charaktar.ge.graphic.GraphicContext;
+import de.charaktar.ge.DrawingContext;
 import de.charaktar.ge.graphic.image.Image;
 import de.charaktar.ge.metric.Dimension;
 
@@ -33,13 +33,14 @@ public class SwingCanvas implements Canvas {
     }
 
     @Override
-    public GraphicContext newGraphicContext(Camera camera) {
+    public DrawingContext newDrawingContext(Camera camera) {
 
-        return new SwingGraphicContext(camera);
+        SwingGraphicContext context = new SwingGraphicContext(this, camera);
+        return new DrawingContext(context);
     }
 
     @Override
-    public void show(Image image) {
+    public void draw(Image image) {
 
         Graphics2D g = (Graphics2D) this.buffer.getDrawGraphics();
         g.drawImage(image.getAwt(), 0, 0, null);

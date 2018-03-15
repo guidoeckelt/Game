@@ -1,6 +1,6 @@
 package de.charaktar.ge.graphic.image.png;
 
-import de.charaktar.ge.util.Bytes;
+import de.charaktar.util.Bytes;
 
 public class PngChunk {
 

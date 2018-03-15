@@ -1,4 +1,4 @@
-package de.charaktar.ge.util;
+package de.charaktar.util;
 
 public class Bytes {
 

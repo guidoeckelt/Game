@@ -2,15 +2,15 @@ package de.charaktar.ge.inputoutput;
 
 public class InputOutputDevices {
 
-    private final Speaker speaker;
     private final Mouse mouse;
     private final KeyBoard keyBoard;
+    private final Speaker speaker;
 
-    public InputOutputDevices(Speaker speaker, Mouse mouse, KeyBoard keyBoard) {
+    public InputOutputDevices(Mouse mouse, KeyBoard keyBoard, Speaker speaker) {
 
-        this.speaker = speaker;
         this.mouse = mouse;
         this.keyBoard = keyBoard;
+        this.speaker = speaker;
     }
 
     public Speaker getSpeaker() {

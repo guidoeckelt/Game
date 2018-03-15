@@ -1,7 +1,7 @@
 package a.test.square;
 
-import de.charaktar.ge.graphic.DrawParameters;
 import de.charaktar.ge.graphic.Graphic;
+import de.charaktar.ge.graphic.GraphicContext;
 import de.charaktar.ge.metric.Vector;
 import javafx.scene.paint.Color;
 
@@ -19,11 +19,9 @@ public class SquareGraphic implements Graphic {
     }
 
     @Override
-    public void draw(DrawParameters drawParameters) {
+    public void draw(GraphicContext graphicContext) {
 
-        drawParameters.getContext().drawRect(
-                this.square.getPosition(), this.square.getSize()
-                , "0xFFFFFF", null);
+        graphicContext.fillRect(this.square.getPosition(), this.square.getSize(), "#FFFFFF");
     }
 
 }

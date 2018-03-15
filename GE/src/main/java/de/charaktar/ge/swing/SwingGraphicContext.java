@@ -12,15 +12,95 @@ import java.awt.image.BufferedImage;
 
 public class SwingGraphicContext implements GraphicContext {
 
+    private final String defaultTextFill = "#FFFFFF";
+    private final String defaultTextStroke = "#000000";
+    private final String defaultFill = "#000000";
+    private final String defaultStroke = "#FFFFFF";
+
+    private de.charaktar.ge.Canvas canvas;
     private Camera camera;
     private BufferedImage image;
 
-    public SwingGraphicContext(Camera camera) {
+    public SwingGraphicContext(de.charaktar.ge.Canvas canvas, Camera camera) {
 
+        this.canvas = canvas;
         this.camera = camera;
         this.image = new BufferedImage(
-                (int) camera.getViewport().getWidth(), (int) camera.getViewport().getHeight()
+                (int) canvas.getViewport().getWidth(), (int) canvas.getViewport().getHeight()
                 , BufferedImage.TYPE_INT_ARGB);
+    }
+
+    @Override
+    public void fillRect(Vector position, Dimension size, String color) {
+
+        int intX = (int) position.getX();
+        int intY = (int) position.getY();
+        int intWidth = (int) size.getWidth();
+        int intHeight = (int) size.getHeight();
+        Graphics2D g = this.getDrawGraphics();
+        if (color == null) {
+            color = this.defaultFill;
+        }
+        this.setColor(g, color);
+        g.fillRect(intX, intY, intWidth, intHeight);
+        g.dispose();
+    }
+
+    @Override
+    public void strokeRect(Vector position, Dimension size, String color, double strokeWidth) {
+
+        int intX = (int) position.getX();
+        int intY = (int) position.getY();
+        int intWidth = (int) size.getWidth();
+        int intHeight = (int) size.getHeight();
+        Graphics2D g = this.getDrawGraphics();
+        if (strokeWidth < 1) {
+            strokeWidth = 1;
+        }
+        this.setStroke(g, (float) strokeWidth);
+        if (color == null) {
+            color = this.defaultStroke;
+        }
+        this.setColor(g, color);
+        g.drawRect(intX, intY, intWidth, intHeight);
+        g.dispose();
+    }
+
+    @Override
+    public void fillText(String text, Vector start, Font font, String color) {
+
+        Graphics2D g = this.getDrawGraphics();
+        GlyphVector glyphVector = font.createGlyphVector(g.getFontRenderContext(), text);
+        Shape shape = glyphVector.getOutline();
+        g.translate(start.getX(), start.getY() + shape.getBounds2D().getHeight());
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        if (color == null) {
+            color = this.defaultTextFill;
+        }
+        this.setColor(g, color);
+        g.fill(shape);
+        g.dispose();
+    }
+
+
+    @Override
+    public void strokeText(String text, Vector start, Font font, String color, double strokeWidth) {
+
+        Graphics2D g = this.getDrawGraphics();
+        GlyphVector glyphVector = font.createGlyphVector(g.getFontRenderContext(), text);
+        Shape shape = glyphVector.getOutline();
+        g.translate(start.getX(), start.getY() + shape.getBounds2D().getHeight());
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        if (strokeWidth < 1) {
+            strokeWidth = 1;
+        }
+        this.setStroke(g, (float) strokeWidth);
+        if (color == null) {
+            color = this.defaultTextStroke;
+        }
+        this.setColor(g, color);
+        g.draw(shape);
+        g.dispose();
     }
 
     @Override
@@ -38,59 +118,22 @@ public class SwingGraphicContext implements GraphicContext {
         int intHeight = (int) size.getHeight();
         Graphics2D g = this.getDrawGraphics();
         g.drawImage(image.getAwt(), intX, intY, intWidth, intHeight, null);
-        this.dispose(g);
+        g.dispose();
     }
 
-    @Override
-    public void drawText(String text, Vector position, Font font, String fillColor, double borderSize) {
-
-        int intX = (int) position.getX();
-        int intY = (int) position.getY();
-        Graphics2D g = this.getDrawGraphics();
-        GlyphVector gv = font.createGlyphVector(g.getFontRenderContext(), text);
-        Shape textShape = gv.getOutline();
-        g.translate(intX, intY + textShape.getBounds2D().getHeight());
-        this.setStroke(g, (float) borderSize);
-        this.setColor(g, fillColor);
-        g.fill(textShape);
-        this.setColor(g, "#000000");
-        g.draw(textShape);
-        this.dispose(g);
-    }
-
-    @Override
-    public void drawRect(Vector position, Dimension size, String fillColor, String borderColor) {
-
-        int intX = (int) position.getX();
-        int intY = (int) position.getY();
-        int intWidth = (int) size.getWidth();
-        int intHeight = (int) size.getHeight();
-        Graphics2D g = this.getDrawGraphics();
-        if (fillColor != null) {
-            this.setColor(g, fillColor);
-            g.fillRect(intX, intY, intWidth, intHeight);
-        }
-        if (borderColor != null) {
-            this.setColor(g, borderColor);
-            g.drawRect(intX, intY, intWidth, intHeight);
-        }
-        this.dispose(g);
-    }
-
-    @Override
-    public Image end() {
+    public Image get() {
 
         return new Image(this.image);
+    }
+
+    @Override
+    public Dimension getViewport() {
+        return this.canvas.getViewport();
     }
 
     private Graphics2D getDrawGraphics() {
 
         return this.image.createGraphics();
-    }
-
-    private void dispose(Graphics g) {
-
-        g.dispose();
     }
 
     private void setColor(Graphics2D g, String color) {

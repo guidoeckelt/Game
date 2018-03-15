@@ -1,7 +1,5 @@
 package de.charaktar.ge.inputoutput;
 
-@FunctionalInterface
-public interface MouseListener {
+public interface MouseListener extends MouseMotionListener, MouseButtonListener {
 
-    void update(MouseEvent event);
 }

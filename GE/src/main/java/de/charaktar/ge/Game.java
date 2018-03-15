@@ -6,9 +6,7 @@ import de.charaktar.ge.graphic.Graphic;
 import de.charaktar.ge.graphic.image.ImageContainer;
 import de.charaktar.ge.inputoutput.InputOutputDevices;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Guido on 11.05.2016.
@@ -36,8 +34,13 @@ public abstract class Game {
     public void start() {
 
         this.OnStartUp();
-        this.isLoading = false;
-        this.gameLoop.start();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Game.this.isLoading = false;
+                Game.this.gameLoop.start();
+            }
+        }, 1000);
     }
 
     public void toggle() {

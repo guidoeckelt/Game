@@ -1,4 +1,4 @@
-package de.charaktar.ge.swing.input;
+package de.charaktar.ge.inputoutput.input;
 
 import de.charaktar.ge.inputoutput.KeyBoard;
 import de.charaktar.ge.inputoutput.KeyBoardButton;

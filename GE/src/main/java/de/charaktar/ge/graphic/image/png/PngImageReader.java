@@ -1,7 +1,7 @@
 package de.charaktar.ge.graphic.image.png;
 
 import de.charaktar.ge.graphic.image.Pixel;
-import de.charaktar.ge.util.Bytes;
+import de.charaktar.util.Bytes;
 
 import java.util.ArrayList;
 import java.util.List;

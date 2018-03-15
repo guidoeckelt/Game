@@ -5,13 +5,13 @@ import de.charaktar.ge.GameStatus;
 import de.charaktar.ge.GameStatusType;
 import de.charaktar.ge.Scene;
 import de.charaktar.ge.filesystem.SceneReader;
-import de.charaktar.ge.graphic.Button;
+import de.charaktar.ge.graphic.text.Dialog;
+import de.charaktar.ge.graphic.text.Line;
+import de.charaktar.ge.graphic.ui.Button;
 import de.charaktar.ge.inputoutput.InputOutputDevices;
 import de.charaktar.ge.inputoutput.KeyBoardButton;
 import de.charaktar.ge.metric.Dimension;
 import de.charaktar.ge.metric.Vector;
-import de.charaktar.ge.text.Dialog;
-import de.charaktar.ge.text.Line;
 import de.charaktar.pointyandclicky.inputoutput.HoverListener;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class PointyAndClicky extends Game {
     protected void OnStartUp() {
 
         this.ui = new ArrayList<>();
-        Button button = new Button("Button", new Vector(700, 250), new Dimension(520, 100));
+        Button button = new Button("Exit", null, new Vector(700, 250), new Dimension(520, 100));
         this.ui.add(button);
         this.openScene("testscene");
         this.io.getMouse().addListener(this.hoverListener);
@@ -47,11 +47,6 @@ public class PointyAndClicky extends Game {
             }
         });
         this.playConversation();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -2,20 +2,18 @@ package de.charaktar.ge.inputoutput;
 
 import de.charaktar.ge.metric.Vector;
 
-import java.util.List;
-
 public class MouseEvent {
 
     private Vector position;
-    private List<MouseButton> button;
+    private MouseButton button;
     private int mouseWheelRotation;
 
 
-    public MouseEvent(Vector position, List<MouseButton> button) {
+    public MouseEvent(Vector position, MouseButton button) {
         this(position, button, 0);
     }
 
-    public MouseEvent(Vector position, List<MouseButton> button, int mouseWheelRotation) {
+    public MouseEvent(Vector position, MouseButton button, int mouseWheelRotation) {
         this.position = position;
         this.button = button;
         this.mouseWheelRotation = mouseWheelRotation;
@@ -25,7 +23,7 @@ public class MouseEvent {
         return position;
     }
 
-    public List<MouseButton> getButton() {
+    public MouseButton getButton() {
         return button;
     }
 

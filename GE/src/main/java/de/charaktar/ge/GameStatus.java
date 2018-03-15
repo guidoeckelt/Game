@@ -2,7 +2,7 @@ package de.charaktar.ge;
 
 import de.charaktar.ge.gameobject.GameObject;
 import de.charaktar.ge.graphic.Graphic;
-import de.charaktar.ge.text.Dialog;
+import de.charaktar.ge.graphic.text.Dialog;
 
 import java.util.ArrayList;
 import java.util.Collections;

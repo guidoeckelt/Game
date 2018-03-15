@@ -1,9 +1,9 @@
 package de.charaktar.ge.graphic;
 
 
+import de.charaktar.ge.graphic.text.Line;
 import de.charaktar.ge.metric.Dimension;
 import de.charaktar.ge.metric.Vector;
-import de.charaktar.ge.text.Line;
 
 import java.awt.*;
 
@@ -30,17 +30,19 @@ public class LineGraphic implements Graphic {
     }
 
     @Override
-    public void draw(DrawParameters drawParameters) {
+    public void draw(GraphicContext graphicContext) {
 
-        drawParameters.getContext().drawRect(lineStart, lineMaxSize, null, "#000000");
+        graphicContext.strokeRect(lineStart, lineMaxSize, "#000000", 2);
 
         String name = this.line.getSpeakerName();
         Vector namePosition = new Vector(this.lineStart.getX(), this.lineStart.getY());
-        drawParameters.getContext().drawText(name + " :", namePosition, this.defaultNameFont, this.defaultColor, 3);
+        graphicContext.fillText(name + " :", namePosition, this.defaultNameFont, this.defaultColor);
+        graphicContext.strokeText(name + " :", namePosition, this.defaultNameFont, "#000000", 3);
 
         String nextLineContent = this.line.getNextLineContent();
         Vector contentPosition = new Vector(this.lineStart.getX() + this.contentOffsetX, this.lineStart.getY());
-        drawParameters.getContext().drawText(nextLineContent, contentPosition, this.defaultContentFont, this.defaultColor, 2);
+        graphicContext.fillText(nextLineContent, contentPosition, this.defaultContentFont, this.defaultColor);
+        graphicContext.strokeText(nextLineContent, contentPosition, this.defaultContentFont, "#000000", 3);
     }
 
 }
